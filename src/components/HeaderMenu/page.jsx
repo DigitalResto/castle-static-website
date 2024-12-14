@@ -14,40 +14,40 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
-const initiatives = [
+const menuItems = [
   {
-    title: "Tree Planting Programs",
-    href: "/initiatives/tree-planting",
+    title: "Signature Dishes",
+    href: "/menu/signature-dishes",
     description:
-      "Join our nationwide tree planting initiatives and contribute to increasing forest cover.",
+      "Explore our mouthwatering signature dishes, including our famous Mandhi and Kabsa specials.",
   },
   {
-    title: "Carbon Calculator",
-    href: "/tools/carbon-calculator",
-    description: "Calculate your carbon footprint and learn ways to reduce it.",
+    title: "Appetizers",
+    href: "/menu/appetizers",
+    description: "Start your meal with our delectable range of authentic appetizers.",
   },
   {
-    title: "Education Resources",
-    href: "/resources/education",
+    title: "Desserts",
+    href: "/menu/desserts",
     description:
-      "Access educational materials about climate change, carbon neutrality, and environmental conservation.",
+      "Indulge in our delightful selection of traditional and modern desserts.",
   },
   {
-    title: "Community Projects",
-    href: "/initiatives/community",
-    description: "Discover local community-led environmental projects and how to participate.",
+    title: "Beverages",
+    href: "/menu/beverages",
+    description: "Quench your thirst with our refreshing drinks and exotic teas.",
   },
   {
-    title: "Progress Tracker",
-    href: "/impact/tracker",
+    title: "Special Offers",
+    href: "/menu/special-offers",
     description:
-      "Track our progress towards national carbon neutrality goals and tree planting targets.",
+      "Don’t miss our exclusive offers and combo meals for a perfect dining experience.",
   },
   {
-    title: "Get Involved",
-    href: "/get-involved",
+    title: "Catering Services",
+    href: "/services/catering",
     description:
-      "Find out how you can contribute to the Rebuild Earth initiative through volunteering or partnerships.",
+      "Let Nahdi Mandhi make your events special with our exquisite catering services.",
   },
 ];
 
@@ -55,10 +55,10 @@ export default function HeaderMenu() {
   return (
     <NavigationMenu className="">
       <NavigationMenuList>
-        {/* About Rebuild Earth */}
+        {/* About Nahdi Mandhi */}
         <NavigationMenuItem>
           <NavigationMenuTrigger className="bg-transparent hover:bg-transparent font-extrabold">
-            About Rebuild Earth
+            About Nahdi Mandhi
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
@@ -69,60 +69,59 @@ export default function HeaderMenu() {
                     href="/"
                   >
                     <div className="mb-2 mt-4 text-lg font-medium">
-                      Rebuild Earth
+                      Nahdi Mandhi
                     </div>
                     <p className="text-sm leading-tight text-muted-foreground">
-                      A government initiative to combat climate change through tree planting
-                      and promoting carbon neutrality awareness across the nation.
+                      Experience the authentic taste of Arabia with Nahdi Mandhi’s specially curated menu, combining traditional flavors and modern dining.
                     </p>
                   </a>
                 </NavigationMenuLink>
               </li>
               <ListItem href="/about/mission" title="Our Mission">
-                Creating a sustainable future through nationwide tree planting and carbon reduction.
+                Serving authentic Arabian cuisine with a focus on quality, tradition, and unforgettable flavors.
               </ListItem>
-              <ListItem href="/about/goals" title="Goals">
-                Achieving carbon neutrality and increasing forest cover through community engagement.
+              <ListItem href="/about/values" title="Our Values">
+                Committed to providing exceptional dining experiences with fresh ingredients and outstanding service.
               </ListItem>
-              <ListItem href="/about/impact" title="Impact">
-                Track our progress and see the difference we're making together.
+              <ListItem href="/about/story" title="Our Story">
+                Discover how Nahdi Mandhi brings the rich culinary heritage of Arabia to your table.
               </ListItem>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
 
-        {/* Initiatives */}
+        {/* Menu */}
         <NavigationMenuItem>
-        <NavigationMenuTrigger className="bg-transparent hover:bg-transparent font-extrabold">
-            Initiatives
+          <NavigationMenuTrigger className="bg-transparent hover:bg-transparent font-extrabold">
+            Menu
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {initiatives.map((initiative) => (
+              {menuItems.map((item) => (
                 <ListItem
-                  key={initiative.title}
-                  title={initiative.title}
-                  href={initiative.href}
+                  key={item.title}
+                  title={item.title}
+                  href={item.href}
                 >
-                  {initiative.description}
+                  {item.description}
                 </ListItem>
               ))}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
 
-        {/* Get Involved */}
+        {/* Services */}
         <NavigationMenuItem>
-        <NavigationMenuTrigger className="bg-transparent hover:bg-transparent font-extrabold">
-            Get Involved
+          <NavigationMenuTrigger className="bg-transparent hover:bg-transparent font-extrabold">
+            Services
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              <ListItem title="Volunteer" href="/get-involved/volunteer">
-                Join our tree planting events and community initiatives to make a direct impact on our environment.
+              <ListItem title="Private Dining" href="/services/private-dining">
+                Enjoy an exclusive dining experience with personalized service in our private dining spaces.
               </ListItem>
-              <ListItem title="Partners" href="/get-involved/partners">
-                Discover partnership opportunities for organizations and businesses committed to environmental sustainability.
+              <ListItem title="Event Catering" href="/services/event-catering">
+                Make your special occasions unforgettable with our premium catering services.
               </ListItem>
             </ul>
           </NavigationMenuContent>
