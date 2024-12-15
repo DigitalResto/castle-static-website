@@ -1,3 +1,4 @@
+import Link from "next/link";
 import HeaderMenu from "../HeaderMenu/page";
 
 export default function Header() {
@@ -21,9 +22,11 @@ export default function Header() {
 
             {/* Reservation Button */}
             <div className="hidden md:block">
+                <Link href="/reg-waitlist">
                 <button className="border-2 border-white px-6 py-2 rounded-md hover:bg-white hover:text-gray-900 transition">
-                    Reservation
+                    Reserve
                 </button>
+                </Link>
             </div>
 
             {/* Mobile Menu */}

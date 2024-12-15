@@ -9,10 +9,56 @@ export default function WaitListRegister() {
     const [number, setNumber] = useState('');
     const [persons, setPersons] = useState('');
     const [otp, setOtp] = useState(['', '', '', '']);
-    const [isOtpStage, setIsOtpStage] = useState(false); // Tracks the form stage
+    const [isOtpStage, setIsOtpStage] = useState(false);
+    const [error, setError] = useState('');
     const router = useRouter(); 
 
+    // Validation functions
+    const validateName = (nameToValidate) => {
+        if (nameToValidate.length < 3) {
+            return "Name must be at least 3 characters long";
+        }
+        if (nameToValidate.length > 15) {
+            return "Name must not exceed 15 characters";
+        }
+        return "";
+    };
+
+    const validatePhoneNumber = (phoneNum) => {
+        const phoneRegex = /^\d{10}$/;
+        if (!phoneRegex.test(phoneNum)) {
+            return "Phone number must be exactly 10 digits";
+        }
+        return "";
+    };
+
+    const validatePersons = (personsCount) => {
+        const parsedPersons = parseInt(personsCount);
+        if (isNaN(parsedPersons) || parsedPersons <= 0) {
+            return "Number of persons must be a positive number";
+        }
+        return "";
+    };
+
     const handleSubmit = async () => {
+        // Reset previous errors
+        setError('');
+
+        // Validate all fields
+        const nameError = validateName(name);
+        const phoneError = validatePhoneNumber(number);
+        const personsError = validatePersons(persons);
+
+        // Combine all errors
+        if (nameError || phoneError || personsError) {
+            const combinedError = [nameError, phoneError, personsError]
+                .filter(err => err !== "")
+                .join(". ");
+            
+            setError(combinedError);
+            return;
+        }
+
         setIsLoading(true);
         try {
             const response = await addToWaitList_FN({ name, number, persons });
@@ -21,6 +67,7 @@ export default function WaitListRegister() {
             }
             setIsOtpStage(true);
         } catch (error) {
+            setError(error.message || 'An error occurred while registering');
             console.error(error);
         } finally {
             setIsLoading(false);
@@ -31,6 +78,11 @@ export default function WaitListRegister() {
         const newOtp = [...otp];
         newOtp[index] = value;
         setOtp(newOtp);
+
+        // Auto-focus to next input when a digit is entered
+        if (value && index < 3) {
+            document.getElementById(`otp-input-${index + 1}`).focus();
+        }
     };
 
     const handlePaste = (e) => {
@@ -45,17 +97,23 @@ export default function WaitListRegister() {
         }
     };
 
-    const checkOTP = async() =>{
-        try{
+    const checkOTP = async() => {
+        setIsLoading(true);
+        setError(''); // Clear any previous errors
+        try {
             const response = await checkOTP_FN(otp);
-            console.log(response);
-            if(response.status == 200){
+            if (response.status == 200) {
                 router.push('/success');
             }
-        }catch(err){  
+        } catch (err) {  
+            // Set error message from the server or a generic error
+            setError(err.response?.data?.message || 'OTP verification failed. Please try again.');
             console.log(err);
+        } finally {
+            setIsLoading(false);
         }
-    } 
+    };
+
     return (
         <div className="flex flex-col md:flex-row h-screen gap-5 overflow-hidden justify-center">
             <div className="flex flex-col items-start justify-center w-full md:w-1/2 px-5 md:px-28">
@@ -69,6 +127,13 @@ export default function WaitListRegister() {
                         : "Enjoy your favorite dish with us."}
                 </p>
 
+                {/* Error Message Display */}
+                {error && (
+                    <div className="w-full md:w-72 mt-3 p-2 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm">
+                        {error}
+                    </div>
+                )}
+
                 {/* Conditional rendering based on stage */}
                 {!isOtpStage ? (
                     <>
@@ -79,16 +144,17 @@ export default function WaitListRegister() {
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             className="border rounded-lg focus:outline-0 focus:border-green-800 w-full md:w-72 p-2"
+                            placeholder="Enter your name (3-15 characters)"
                         />
 
-                        <label htmlFor="number" className="mt-4 text-sm font-semibold">Number</label>
+                        <label htmlFor="number" className="mt-4 text-sm font-semibold">Phone Number</label>
                         <input
-                            type="number"
+                            type="tel"
                             name="number"
                             value={number}
-                            minLength={10}
                             onChange={(e) => setNumber(e.target.value)}
                             className="border rounded-lg focus:outline-0 focus:border-green-800 w-full md:w-72 p-2"
+                            placeholder="10-digit phone number"
                         />
 
                         <label htmlFor="persons" className="mt-4 text-sm font-semibold">Number of persons</label>
@@ -98,6 +164,8 @@ export default function WaitListRegister() {
                             value={persons}
                             onChange={(e) => setPersons(e.target.value)}
                             className="border rounded-lg focus:outline-0 focus:border-green-800 w-full md:w-72 p-2"
+                            placeholder="Number of persons dining"
+                            min="1"
                         />
                     </>
                 ) : (
