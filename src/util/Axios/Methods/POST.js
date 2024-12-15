@@ -10,7 +10,7 @@ export const addToWaitList_FN = (data) =>{
 
 export const checkOTP_FN = (otp) =>{
     try{
-        return axiosInstance.post(CHECK_OTP_API, otp);
+        return axiosInstance.post(CHECK_OTP_API, {otp});
     }catch(err){
         return err;
     }
