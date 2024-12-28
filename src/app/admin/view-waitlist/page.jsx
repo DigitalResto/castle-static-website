@@ -1,23 +1,21 @@
 "use client";
 import { changeStatus_FN, GET_WAITLIST_FN } from '@/util/Axios/Methods/POST';
-import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { Search, LogOut, ArrowLeft, Check, X } from 'lucide-react';
 
 export default function WaitList() {
-    // State to store waitlist data
     const [waitlistData, setWaitlistData] = useState([]);
-    
-    // State to manage loading and error states
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
+    const router = useRouter();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setIsLoading(true);
                 const response = await GET_WAITLIST_FN();
-                console.log("Waitlist data ==>", response.data);
-                
-                // Assuming the API returns data in response.data.data
                 setWaitlistData(response.data.data || []);
             } catch (err) {
                 console.error("Error fetching waitlist:", err);
@@ -30,23 +28,30 @@ export default function WaitList() {
         fetchData();
     }, []);
 
-    // Function to handle accept/reject actions
     const handleAction = async(id, action) => {
-        const response = await changeStatus_FN(id, action);
-        console.log("Response ==>",response)
-        console.log(`${action} action for item with ID: ${id}`);
+        try {
+            const response = await changeStatus_FN(id, action);
+            if (response.status === 200 || response.status === 201) {
+                setWaitlistData(prevData => prevData.filter(item => item._id !== id));
+            }
+        } catch (err) {
+            console.error(`Error ${action}ing item:`, err);
+        }
     };
 
-    // Render loading state
+    const filteredWaitlist = waitlistData.filter(item =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.number.includes(searchTerm)
+    );
+
     if (isLoading) {
         return (
             <div className="flex justify-center items-center h-screen">
-                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-blue-500"></div>
+                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-green-500"></div>
             </div>
         );
     }
 
-    // Render error state
     if (error) {
         return (
             <div className="flex justify-center items-center h-screen text-red-500">
@@ -56,51 +61,105 @@ export default function WaitList() {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center gap-4 p-6 overflow-auto">
-            <h1 className="text-4xl md:text-5xl">Waiting List</h1>
-            
-            {waitlistData.length === 0 ? (
-                <div className="text-gray-500">No waiting list items found.</div>
-            ) : (
-                waitlistData.map((item, index) => (
-                    <div
-                        key={item._id || index}
-                        className="flex flex-col md:flex-row w-full max-w-lg justify-between rounded-lg bg-white p-4 md:p-6 shadow-2xl"
-                    >
-                        <div className="flex flex-col gap-2">
-                            <div className="flex gap-4 md:gap-10">
-                                <div className="font-medium text-gray-800">
-                                    {/* Assuming you have a time field, adjust as needed */}
-                                    {item.time || '08:00 AM'}
-                                </div>
-                                <div className="text-gray-600 font-medium">
-                                    {item.name || 'Unknown'}
-                                </div>
-                                <div className="text-gray-500 text-sm">
-                                    {item.persons || 'N/A'}
-                                </div>
-                            </div>
-                            <div className="text-gray-500 text-sm">
-                                {item.number || 'No mobile number'}
+        <div className="min-h-screen bg-gray-50">
+            {/* Header */}
+            <header className="bg-white shadow">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+                    <div className="flex items-center space-x-4">
+                        <img src="/nahdi-mandi-logo.png" alt="Logo" className="h-10 w-10 rounded-full" />
+                        <h1 className="text-2xl font-bold text-gray-900">Waiting List</h1>
+                    </div>
+                    <div className="flex items-center space-x-4">
+                        <button
+                            onClick={() => router.push('/admin/dashboard')}
+                            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700"
+                        >
+                            <ArrowLeft className="w-4 h-4 mr-2" />
+                            Dashboard
+                        </button>
+                        <button
+                            onClick={() => router.push('/login')}
+                            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700"
+                        >
+                            <LogOut className="w-4 h-4 mr-2" />
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            {/* Main Content */}
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div className="bg-white rounded-lg shadow">
+                    <div className="p-6">
+                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                            <h2 className="text-lg font-semibold text-gray-900 mb-4 md:mb-0">Current Waitlist</h2>
+                            
+                            <div className="relative w-full md:w-64">
+                                <input
+                                    type="text"
+                                    placeholder="Search by name or phone..."
+                                    className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                />
+                                <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
                             </div>
                         </div>
-                        <div className="flex gap-2 mt-4 md:mt-0">
-                            <button 
-                                onClick={() => handleAction(item._id, 'accept')}
-                                className="rounded border px-2 hover:bg-green-100 transition"
-                            >
-                                ✅
-                            </button>
-                            <button 
-                                onClick={() => handleAction(item._id, 'reject')}
-                                className="rounded border px-2 hover:bg-red-100 transition"
-                            >
-                                ❌
-                            </button>
+
+                        {/* Waitlist Table */}
+                        <div className="overflow-x-auto">
+                            {filteredWaitlist.length === 0 ? (
+                                <div className="text-center py-8 text-gray-500">No waiting list items found.</div>
+                            ) : (
+                                <table className="min-w-full divide-y divide-gray-200">
+                                    <thead className="bg-gray-50">
+                                        <tr>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Persons</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="bg-white divide-y divide-gray-200">
+                                        {filteredWaitlist.map((item) => (
+                                            <tr key={item._id}>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                    {item.time || '08:00 AM'}
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {item.name || 'Unknown'}
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {item.persons || 'N/A'}
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {item.number || 'No mobile number'}
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                                    <button
+                                                        onClick={() => handleAction(item._id, 'accept')}
+                                                        className="inline-flex items-center p-1 border border-transparent rounded-full text-green-600 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                                                    >
+                                                        <Check className="h-5 w-5" />
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleAction(item._id, 'reject')}
+                                                        className="inline-flex items-center p-1 border border-transparent rounded-full text-red-600 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                                                    >
+                                                        <X className="h-5 w-5" />
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            )}
                         </div>
                     </div>
-                ))
-            )}
+                </div>
+            </main>
         </div>
     );
 }

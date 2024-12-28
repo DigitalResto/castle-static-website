@@ -34,7 +34,7 @@ const Footer = () => {
             <p className="text-sm ">+91 95268 77775</p>
           </div>
           <a
-            href="https://www.google.com/maps"
+            href="https://www.google.com/maps/search/Nahdi+Mandi/@12.493782,76.0881552,8.04z?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-400 hover:underline text-sm"

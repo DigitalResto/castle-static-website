@@ -12,39 +12,40 @@ const PricingMenu = () => {
         {
           name: "Peri Peri Al Fahm",
           description: "Juicy chicken marinated with spicy peri peri sauce, grilled to perfection.",
-          price: 20,
-          image: "peri-peri-mandi.png",
+          price: 150,
+          image: "peri-peri-mandi.png"
         },
         {
           name: "Al Fahm",
           description: "Traditional grilled chicken marinated in rich Arabian spices.",
-          price: 18,
-          image: "peri-peri-mandi.png",
+          price: 130,
+          image: "peri-peri-mandi.png"
         },
         {
           name: "Green Chilli Al Fahm",
           description: "Spicy green chilli marinade for a fiery grilled chicken experience.",
-          price: 22,
-          image: "peri-peri-mandi.png",
+          price: 160,
+          image: "peri-peri-mandi.png"
         },
         {
           name: "Shawaya",
           description: "Mildly spiced chicken grilled to golden perfection.",
-          price: 17,
-          image: "peri-peri-mandi.png",
+          price: 120,
+          image: "peri-peri-mandi.png"
         },
         {
           name: "Turkish Al Fahm",
           description: "A Turkish twist to classic Al Fahm with unique spices.",
-          price: 25,
-          image: "peri-peri-mandi.png",
+          price: 170,
+          image: "peri-peri-mandi.png"
         },
         {
           name: "Honey Chilli Al Fahm",
           description: "Sweet and spicy honey chilli glaze on tender grilled chicken.",
-          price: 23,
-          image: "peri-peri-mandi.png",
-        },
+          price: 160,
+          image: "peri-peri-mandi.png"
+        }
+        
       ],
     },
     {
@@ -53,97 +54,97 @@ const PricingMenu = () => {
         {
           name: "Chicken Mandi",
           description: "Delicious rice with tender chicken cooked in Mandi spices.",
-          price: 15,
+          price: 180,
           image: "peri-peri-mandi.png",
         },
         {
           name: "Shawaya Mandi",
           description: "Mandi rice served with juicy grilled Shawaya chicken.",
-          price: 18,
+          price: 200,
           image: "peri-peri-mandi.png",
         },
         {
           name: "Chicken Madfoon",
           description: "Slow-cooked chicken with aromatic spices served with Mandi rice.",
-          price: 20,
+          price: 200,
           image: "peri-peri-mandi.png",
         },
         {
           name: "Al Fahm Mandi",
           description: "Juicy Al Fahm chicken served with fragrant Mandi rice.",
-          price: 21,
+          price: 200,
           image: "peri-peri-mandi.png",
         },
         {
           name: "Green Chilli Al Fahm Mandi",
           description: "Spicy green chilli Al Fahm served with traditional Mandi rice.",
-          price: 23,
+          price: 220,
           image: "peri-peri-mandi.png",
         },
         {
           name: "Peri Peri Al Fahm Mandi",
           description: "Flavorful peri peri Al Fahm served with aromatic Mandi rice.",
-          price: 24,
+          price: 220,
           image: "peri-peri-mandi.png",
         },
         {
           name: "Honey Chilli Al Fahm Mandi",
           description: "Sweet and spicy honey chilli Al Fahm with Mandi rice.",
-          price: 25,
+          price: 220,
           image: "peri-peri-mandi.png",
         },
         {
           name: "Turkish Al Fahm Mandi",
           description: "A Turkish twist to Al Fahm served with Mandi rice.",
-          price: 26,
+          price: 240,
           image: "peri-peri-mandi.png",
         },
         {
           name: "Grilled Mutton Mandi",
           description: "Flavorful grilled mutton served with fragrant Mandi rice.",
-          price: 28,
+          price: 240,
           image: "peri-peri-mandi.png",
         },
         {
           name: "Grilled Beef Mandi",
           description: "Succulent grilled beef served with aromatic Mandi rice.",
-          price: 30,
+          price: 280,
           image: "peri-peri-mandi.png",
         },
         {
           name: "Mandi Rice",
           description: "Traditional fragrant rice cooked with Mandi spices.",
-          price: 12,
+          price: 120,
           image: "peri-peri-mandi.png",
         },
         {
           name: "Beef Mandi",
           description: "Tender beef cooked with Mandi spices and served with rice.",
-          price: 22,
+          price: 220,
           image: "peri-peri-mandi.png",
         },
         {
           name: "Mutton Mandi",
           description: "Juicy mutton cooked with traditional Mandi spices and rice.",
-          price: 26,
+          price: 260,
           image: "peri-peri-mandi.png",
         },
         {
           name: "Mandi Platter - 4 Pax",
           description: "A platter for 4 with assorted Mandi flavors and grilled meats.",
-          price: 60,
+          price: 600,
           image: "peri-peri-mandi.png",
         },
         {
           name: "Mandi Platter - 6 Pax",
           description: "A larger platter for 6, perfect for a family feast.",
-          price: 85,
+          price: 850,
           image: "peri-peri-mandi.png",
         },
         {
           name: "Mandi Chicken",
           description: "Classic Mandi chicken served with flavorful rice.",
-          price: 18,
+          price: 120,
           image: "peri-peri-mandi.png",
         },
       ],
@@ -154,51 +155,53 @@ const PricingMenu = () => {
         {
           name: "Galaxy Shake",
           description: "Rich and creamy shake with a galaxy of flavors.",
-          price: 8,
-          image: "peri-peri-mandi.png",
+          price: 140,
+          image: "peri-peri-mandi.png"
         },
         {
           name: "Pop Corn Shake",
           description: "A unique shake with a hint of sweet and salty popcorn flavor.",
-          price: 7,
-          image: "peri-peri-mandi.png",
+          price: 130,
+          image: "peri-peri-mandi.png"
         },
         {
           name: "Bounty Shake",
           description: "A creamy shake with coconut and chocolate flavors.",
-          price: 9,
-          image: "peri-peri-mandi.png",
+          price: 150,
+          image: "peri-peri-mandi.png"
         },
         {
           name: "Dairy Milk Shake",
           description: "Smooth and rich shake made with Dairy Milk chocolate.",
-          price: 9,
-          image: "peri-peri-mandi.png",
+          price: 120,
+          image: "peri-peri-mandi.png"
         },
         {
           name: "Nutella Shake",
           description: "Thick shake made with creamy Nutella and chocolate drizzle.",
-          price: 9,
-          image: "peri-peri-mandi.png",
+          price: 150,
+          image: "peri-peri-mandi.png"
         },
         {
           name: "Belgium Shake",
           description: "Luxurious shake with rich Belgian chocolate flavor.",
-          price: 10,
-          image: "peri-peri-mandi.png",
+          price: 180,
+          image: "peri-peri-mandi.png"
         },
         {
           name: "Brownie Shake",
           description: "Creamy shake blended with chunks of rich brownie.",
-          price: 10,
-          image: "peri-peri-mandi.png",
+          price: 160,
+          image: "peri-peri-mandi.png"
         },
         {
           name: "Bubblegum Shake",
           description: "A fun and sweet bubblegum-flavored creamy shake.",
-          price: 8,
-          image: "peri-peri-mandi.png",
-        },
+          price: 100,
+          image: "peri-peri-mandi.png"
+        }
+        
+        
       ],
     },
   ];
@@ -245,7 +248,7 @@ const PricingMenu = () => {
                   {item.description}
                 </p>
               </div>
-              <div className="text-red-500 font-bold text-lg px-4">${item.price}</div>
+              <div className="text-red-500 font-bold text-lg px-4">{item.price}</div>
             </div>
           ))}
         </div>

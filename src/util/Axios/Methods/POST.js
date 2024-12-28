@@ -1,5 +1,12 @@
 import axiosInstance from "../AxiosInstance"
-import { ADD_TO_WAITLIST_API, CHANGE_STATUS_API, CHECK_OTP_API, GET_WAITLIST_API } from "../Endpoints";
+import { 
+    ADD_TO_WAITLIST_API, 
+    CHANGE_STATUS_API, 
+    CHECK_OTP_API, 
+    GET_WAITLIST_API, 
+    ADMIN_LOGIN_API 
+
+} from "../Endpoints";
 export const addToWaitList_FN = (data) =>{
     try{
         return axiosInstance.post(ADD_TO_WAITLIST_API, data);
@@ -26,6 +33,14 @@ export const GET_WAITLIST_FN = () =>{
 export const changeStatus_FN = (id, status)=>{
     try{
         return axiosInstance.post(CHANGE_STATUS_API, {id, status});
+    }catch(err){
+        return err;
+    }
+}
+
+export const Admin_Login_FN = (data)=>{
+    try{
+        return axiosInstance.post(ADMIN_LOGIN_API, data);
     }catch(err){
         return err;
     }
