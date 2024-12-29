@@ -2,28 +2,14 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { 
-  Users,
   LogOut,
   ClipboardList,
   UserCheck,
   UserX,
-  UserClock,
-  Search,
-  Calendar,
-  User
+  User,
+  Search
 } from 'lucide-react';
-
-// Mock data - Replace with actual API calls
-const fetchDashboardStats = async () => ({
-  waiting: 15,
-  seated: 45,
-  cancelled: 8
-});
-
-const fetchRegistrations = async () => ([
-  { id: 1, name: "John Doe", persons: 4, status: "cancelled", time: "14:30", date: new Date() },
-  { id: 2, name: "Jane Smith", persons: 2, status: "seated", time: "15:00", date: new Date() }
-]);
+import { fetchDashboardData_FN } from '@/util/Axios/Methods/POST';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -36,12 +22,28 @@ export default function Dashboard() {
   useEffect(() => {
     const loadDashboardData = async () => {
       try {
-        const [statsData, registrationsData] = await Promise.all([
-          fetchDashboardStats(),
-          fetchRegistrations()
-        ]);
-        setStats(statsData);
-        setRegistrations(registrationsData);
+        const response = await fetchDashboardData_FN();
+        const data = response.data.data;
+        
+        const calculatedStats = {
+          waiting: data.filter(item => item.isWaiting === 'waiting').length,
+          seated: data.filter(item => item.isWaiting === 'accepted').length,
+          cancelled: data.filter(item => item.isWaiting === 'rejected').length
+        };
+        
+        // Store ISO date strings instead of Date objects
+        const formattedRegistrations = data.map(item => ({
+          id: item._id,
+          name: item.name,
+          number: item.number,
+          persons: item.persons,
+          status: item.isWaiting,
+          // Convert dates to ISO strings for consistent handling
+          timestamp: item.timestamp || new Date().toISOString()
+        }));
+
+        setStats(calculatedStats);
+        setRegistrations(formattedRegistrations);
       } catch (error) {
         console.error('Error loading dashboard data:', error);
       } finally {
@@ -53,28 +55,75 @@ export default function Dashboard() {
   }, []);
 
   const handleLogout = () => {
-    // Implement logout logic
-    router.push('/login');
+    router.push('/admin/login');
   };
 
+  // Date comparison functions using ISO strings
+  const isToday = (dateString) => {
+    const date = new Date(dateString);
+    const today = new Date();
+    return date.getDate() === today.getDate() &&
+           date.getMonth() === today.getMonth() &&
+           date.getFullYear() === today.getFullYear();
+  };
+
+  const isYesterday = (dateString) => {
+    const date = new Date(dateString);
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    return date.getDate() === yesterday.getDate() &&
+           date.getMonth() === yesterday.getMonth() &&
+           date.getFullYear() === yesterday.getFullYear();
+  };
+
+  // Memoize filtered registrations to avoid unnecessary recalculations
   const filteredRegistrations = registrations.filter(reg => {
-    const matchesSearch = reg.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesDate = filterDate === 'all' || 
-      (filterDate === 'today' && isToday(reg.date)) ||
-      (filterDate === 'yesterday' && isYesterday(reg.date));
+    const matchesSearch = reg.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         reg.number.includes(searchTerm);
+    
+    let matchesDate = true;
+    if (filterDate === 'today') {
+      matchesDate = isToday(reg.timestamp);
+    } else if (filterDate === 'yesterday') {
+      matchesDate = isYesterday(reg.timestamp);
+    }
+    
     return matchesSearch && matchesDate;
   });
 
-  const isToday = (date) => {
-    const today = new Date();
-    return date.toDateString() === today.toDateString();
+  const getStatusStyle = (status) => {
+    switch(status) {
+      case 'waiting':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'accepted':
+        return 'bg-green-100 text-green-800';
+      case 'rejected':
+        return 'bg-red-100 text-red-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
+    }
   };
 
-  const isYesterday = (date) => {
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    return date.toDateString() === yesterday.toDateString();
+  const formatStatus = (status) => {
+    switch(status) {
+      case 'waiting':
+        return 'Waiting';
+      case 'accepted':
+        return 'Seated';
+      case 'rejected':
+        return 'Cancelled';
+      default:
+        return status;
+    }
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-green-500"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -155,7 +204,7 @@ export default function Dashboard() {
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder="Search by name..."
+                    placeholder="Search by name or phone..."
                     className="w-full md:w-64 pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
@@ -181,29 +230,27 @@ export default function Dashboard() {
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Persons</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {filteredRegistrations.map((registration) => (
                     <tr key={registration.id}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{registration.name}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{registration.persons}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                          registration.status === 'waiting' ? 'bg-yellow-100 text-yellow-800' :
-                          registration.status === 'seated' ? 'bg-green-100 text-green-800' :
-                          'bg-red-100 text-red-800'
-                        }`}>
-                          {registration.status}
-                        </span>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        {registration.name}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{registration.time}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {registration.date.toLocaleDateString()}
+                        {registration.number}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {registration.persons}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusStyle(registration.status)}`}>
+                          {formatStatus(registration.status)}
+                        </span>
                       </td>
                     </tr>
                   ))}

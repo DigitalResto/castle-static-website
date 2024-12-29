@@ -24,11 +24,11 @@ export default function WaitList() {
                 setIsLoading(false);
             }
         };
-        
+
         fetchData();
     }, []);
 
-    const handleAction = async(id, action) => {
+    const handleAction = async (id, action) => {
         try {
             const response = await changeStatus_FN(id, action);
             if (response.status === 200 || response.status === 201) {
@@ -94,7 +94,7 @@ export default function WaitList() {
                     <div className="p-6">
                         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
                             <h2 className="text-lg font-semibold text-gray-900 mb-4 md:mb-0">Current Waitlist</h2>
-                            
+
                             <div className="relative w-full md:w-64">
                                 <input
                                     type="text"
@@ -123,7 +123,7 @@ export default function WaitList() {
                                         </tr>
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-200">
-                                        {filteredWaitlist.map((item) => (
+                                        {[...filteredWaitlist].reverse().map((item) => (
                                             <tr key={item._id}>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                                     {item.time || '08:00 AM'}
