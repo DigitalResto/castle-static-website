@@ -37,6 +37,7 @@ export default function WaitListRegister() {
         if (isNaN(parsedPersons) || parsedPersons <= 0) {
             return "Number of persons must be a positive number";
         }
+        if(parsedPersons > 99) return "Number or person should be 2 digits";
         return "";
     };
 
