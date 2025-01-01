@@ -4,17 +4,17 @@ const teamMembers = [
   {
     name: "Muhammed Haris",
     position: "Chairman & Managing Director",
-    image: "peri-peri-mandi.png",
+    image: "https://www.nahdimandi.com/static/img/haris.jpeg",
   },
   {
     name: "Muhammed Muhsin",
     position: "Director",
-    image: "peri-peri-mandi.png",
+    image: "https://www.nahdimandi.com/static/img/muhsin.jpeg",
   },
   {
     name: "Ashraf",
     position: "Director",
-    image: "peri-peri-mandi.png",
+    image: "https://www.nahdimandi.com/static/img/ashraf.jpeg",
   },
 ];
 

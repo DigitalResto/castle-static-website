@@ -2,7 +2,7 @@
 import { changeStatus_FN, GET_WAITLIST_FN } from '@/util/Axios/Methods/POST';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { Search, LogOut, ArrowLeft, Check, X } from 'lucide-react';
+import { Search, LogOut, ArrowLeft, Check, X, ClipboardCopy } from 'lucide-react';
 
 export default function WaitList() {
     const [waitlistData, setWaitlistData] = useState([]);
@@ -27,6 +27,14 @@ export default function WaitList() {
 
         fetchData();
     }, []);
+
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert("Copied to clipboard!");
+        }).catch(err => {
+            console.error("Failed to copy: ", err);
+        });
+    }
 
     const handleAction = async (id, action) => {
         try {
@@ -134,8 +142,14 @@ export default function WaitList() {
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                     {item.persons || 'N/A'}
                                                 </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    {item.number || 'No mobile number'}
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex items-center gap-2">
+                                                    <span>{item.number || "No mobile number"}</span>
+                                                    {item.number && (
+                                                        <ClipboardCopy
+                                                            className="text-gray-500 hover:text-gray-700 cursor-pointer w-5"
+                                                            onClick={() => copyToClipboard(item.number)}
+                                                        />
+                                                    )}
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                                                     <button
