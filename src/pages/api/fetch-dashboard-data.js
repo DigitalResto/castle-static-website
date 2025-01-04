@@ -11,7 +11,7 @@ export default async function handler(req, res) {
       console.log("Result ==>" , result);
       res.status(200).json({ message: "Data fetched successfully!", data: result });
     } catch (error) {
-      console.error("Error inserting data: ", error);
+      console.error("Error Fetching data: ", error);
       res.status(500).json({ message: "Something went wrong!" });
     } finally {
       await client.close();
@@ -20,7 +20,6 @@ export default async function handler(req, res) {
     res.status(405).json({ message: "Method not allowed!" });
   }
 }
-
 function generateOtp() {
   return Math.floor(1000 + Math.random() * 9000).toString();
 }
