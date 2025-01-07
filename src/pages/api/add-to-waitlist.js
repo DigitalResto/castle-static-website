@@ -24,7 +24,7 @@ export default async function handler(req, res) {
       const database = client.db("nahdi-mandi");
       const collection = database.collection("waitlist");
       
-      const result = await collection.insertOne({ name, number, persons, isWaiting:'waiting'});
+      const result = await collection.insertOne({ name, number, persons, isWaiting:'waiting',time: new Date().toLocaleTimeString()});
       console.log("Inserted data=>", result);
       
       const otp = generateOtp();

@@ -2,6 +2,7 @@
 import { addToWaitList_FN, checkOTP_FN } from "@/util/Axios/Methods/POST";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { getSocket } from "@/util/socket";
 
 export default function WaitListRegister() {
     const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +13,7 @@ export default function WaitListRegister() {
     const [isOtpStage, setIsOtpStage] = useState(false);
     const [error, setError] = useState('');
     const router = useRouter(); 
-
+    const socket = getSocket();
     // Validation functions
     const validateName = (nameToValidate) => {
         if (nameToValidate.length < 3) {
@@ -66,6 +67,17 @@ export default function WaitListRegister() {
             if (response.status !== 200) {
                 throw new Error('Failed to register');
             }
+            
+            // Emit socket event after successful registration
+            console.log("Response data --------------===>",response.data.data.insertedId);
+            socket.emit('new_waitlist_entry', {
+                name,
+                number,
+                persons,
+                time: new Date().toLocaleTimeString(),
+                _id: response.data.data.insertedId,
+            });
+            
             setIsOtpStage(true);
         } catch (error) {
             setError(error.message || 'An error occurred while registering');

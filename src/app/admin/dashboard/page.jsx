@@ -38,7 +38,7 @@ export default function Dashboard() {
           number: item.number,
           persons: item.persons,
           status: item.isWaiting,
-          // Convert dates to ISO strings for consistent handling
+          time:item.time,// Convert dates to ISO strings for consistent handling
           timestamp: item.timestamp || new Date().toISOString()
         }));
 
@@ -229,6 +229,7 @@ export default function Dashboard() {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Persons</th>
@@ -236,8 +237,11 @@ export default function Dashboard() {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {filteredRegistrations.map((registration) => (
+                {[...filteredRegistrations].reverse().map((registration) => (
                     <tr key={registration.id}>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        {registration.time}
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                         {registration.name}
                       </td>

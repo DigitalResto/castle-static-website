@@ -1,8 +1,9 @@
 "use client";
 import { changeStatus_FN, GET_WAITLIST_FN } from '@/util/Axios/Methods/POST';
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Search, LogOut, ArrowLeft, Check, X, ClipboardCopy } from 'lucide-react';
+import { getSocket } from '@/util/socket';
 
 export default function WaitList() {
     const [waitlistData, setWaitlistData] = useState([]);
@@ -10,7 +11,7 @@ export default function WaitList() {
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const router = useRouter();
-
+    const audioRef = useRef(new Audio('/notification.mp3')); 
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -24,8 +25,17 @@ export default function WaitList() {
                 setIsLoading(false);
             }
         };
-
+        // Initialize socket connection
+        const socket = getSocket();
+        socket.on('new_waitlist_entry', (newEntry) => {
+            console.log("Event Recieved ==>" , newEntry);
+            audioRef.current.play().catch(err => console.error('Error playing sound:', err));
+            setWaitlistData(prevData => [...prevData,newEntry]);
+        });
         fetchData();
+        return () => {
+            socket.off('new_waitlist_entry');
+        };
     }, []);
 
     function copyToClipboard(text) {
