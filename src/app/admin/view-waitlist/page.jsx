@@ -11,9 +11,11 @@ export default function WaitList() {
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const router = useRouter();
+    const audioRef = useRef(null);
     useEffect(() => {
         audioRef.current = new Audio('/notification.mp3');
     }, []);
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -31,7 +33,9 @@ export default function WaitList() {
         const socket = getSocket();
         socket.on('new_waitlist_entry', (newEntry) => {
             console.log("Event Recieved ==>" , newEntry);
-            audioRef.current.play().catch(err => console.error('Error playing sound:', err));
+            if (audioRef.current) { // Add safety check
+                audioRef.current.play().catch(err => console.error('Error playing sound:', err));
+            }
             setWaitlistData(prevData => [...prevData,newEntry]);
         });
         fetchData();
