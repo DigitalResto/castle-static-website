@@ -11,7 +11,9 @@ export default function WaitList() {
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const router = useRouter();
-    const audioRef = useRef(new Audio('/notification.mp3')); 
+    useEffect(() => {
+        audioRef.current = new Audio('/notification.mp3');
+    }, []);
     useEffect(() => {
         const fetchData = async () => {
             try {
