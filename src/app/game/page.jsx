@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 export default function Game() {
     const [FoodHorizontalPosition, setFoodHorizontalPosition] = useState(0);
     const [FoodVerticalPosition, setFoodVerticalPosition] = useState(0);
-    const [windowHeight, setWindowHeight] = useState(window.innerHeight);
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [windowHeight, setWindowHeight] = useState(0);
+    const [windowWidth, setWindowWidth] = useState(0);
     const [trashPosition, setTrashPosition] = useState(windowWidth / 2); // Initial trash bin position in the center
     const [score , setScore] = useState(0);
     // Handle slider change to update trash bin position
@@ -15,6 +15,10 @@ export default function Game() {
         setTrashPosition(Math.min(Math.max(value, 0), windowWidth - trashWidth));
     }
 
+    useEffect(()=>{
+        setWindowHeight(window.innerHeight);
+        setWindowWidth(window.innerWidth);
+    },[])
     // Falling animation logic
     useEffect(() => {
         const timer = setInterval(() => {
