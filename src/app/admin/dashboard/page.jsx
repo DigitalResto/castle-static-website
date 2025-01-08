@@ -7,7 +7,10 @@ import {
   UserCheck,
   UserX,
   User,
-  Search
+  Search,
+  MessageSquare,
+  Menu,
+  X
 } from 'lucide-react';
 import { fetchDashboardData_FN } from '@/util/Axios/Methods/POST';
 
@@ -18,7 +21,9 @@ export default function Dashboard() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterDate, setFilterDate] = useState('all');
   const [isLoading, setIsLoading] = useState(true);
-
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isOtpEnabled, setIsOtpEnabled] = useState(false);
+  
   useEffect(() => {
     const loadDashboardData = async () => {
       try {
@@ -56,6 +61,25 @@ export default function Dashboard() {
 
   const handleLogout = () => {
     router.push('/admin/login');
+  };
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const handleOtpToggle = async () => {
+    try {
+      // Add your API call here to update OTP settings
+      const newOtpStatus = !isOtpEnabled;
+      // await updateOtpSettings(newOtpStatus);
+      setIsOtpEnabled(newOtpStatus);
+      // Show success message
+      alert(`OTP verification ${newOtpStatus ? 'enabled' : 'disabled'}`);
+    } catch (error) {
+      console.error('Error updating OTP settings:', error);
+      // Show error message
+      alert('Failed to update OTP settings');
+    }
   };
 
   // Date comparison functions using ISO strings
@@ -125,16 +149,25 @@ export default function Dashboard() {
     );
   }
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+  const Header = () => (
+    <header className="bg-white shadow">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        {/* Desktop Header */}
+        <div className="hidden md:flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <img src="/nahdi-mandi-logo.png" alt="Logo" className="h-10 w-10 rounded-full" />
             <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
           </div>
           <div className="flex items-center space-x-4">
+            <button
+              onClick={handleOtpToggle}
+              className={`inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
+                isOtpEnabled ? 'bg-green-600 hover:bg-green-700' : 'bg-gray-600 hover:bg-gray-700'
+              }`}
+            >
+              <MessageSquare className="w-4 h-4 mr-2" />
+              OTP {isOtpEnabled ? 'Enabled' : 'Disabled'}
+            </button>
             <button
               onClick={() => router.push('/admin/view-waitlist')}
               className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700"
@@ -151,8 +184,67 @@ export default function Dashboard() {
             </button>
           </div>
         </div>
-      </header>
 
+        {/* Mobile Header */}
+        <div className="flex md:hidden justify-between items-center">
+          <div className="flex items-center space-x-4">
+            <button onClick={toggleSidebar} className="p-2">
+              {isSidebarOpen ? (
+                <X className="h-6 w-6 text-gray-600" />
+              ) : (
+                <Menu className="h-6 w-6 text-gray-600" />
+              )}
+            </button>
+            <img src="/nahdi-mandi-logo.png" alt="Logo" className="h-8 w-8 rounded-full" />
+            <h1 className="text-xl font-bold text-gray-900">Dashboard</h1>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Sidebar */}
+      {isSidebarOpen && (
+        <div className="fixed inset-0 z-50 md:hidden">
+          <div className="fixed inset-0 bg-gray-600 bg-opacity-75" onClick={toggleSidebar}></div>
+          <div className="fixed inset-y-0 left-0 w-64 bg-white shadow-xl">
+            <div className="flex flex-col h-full">
+              <div className="px-4 py-6 space-y-4">
+                <button
+                  onClick={handleOtpToggle}
+                  className={`w-full inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
+                    isOtpEnabled ? 'bg-green-600 hover:bg-green-700' : 'bg-gray-600 hover:bg-gray-700'
+                  }`}
+                >
+                  <MessageSquare className="w-4 h-4 mr-2" />
+                  OTP {isOtpEnabled ? 'Enabled' : 'Disabled'}
+                </button>
+                <button
+                  onClick={() => {
+                    router.push('/admin/view-waitlist');
+                    toggleSidebar();
+                  }}
+                  className="w-full inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700"
+                >
+                  <ClipboardList className="w-4 h-4 mr-2" />
+                  Waitlist
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className="w-full inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700"
+                >
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Logout
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </header>
+  );
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Header/>
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Grid */}
@@ -229,18 +321,20 @@ export default function Dashboard() {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Persons</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                 {[...filteredRegistrations].reverse().map((registration) => (
                     <tr key={registration.id}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {registration.time}
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusStyle(registration.status)}`}>
+                          {formatStatus(registration.status)}
+                        </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                         {registration.name}
@@ -251,10 +345,9 @@ export default function Dashboard() {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {registration.persons}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusStyle(registration.status)}`}>
-                          {formatStatus(registration.status)}
-                        </span>
+
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        {registration.time}
                       </td>
                     </tr>
                   ))}

@@ -24,7 +24,6 @@ export default function WaitListRegister() {
         }
         return "";
     };
-
     const validatePhoneNumber = (phoneNum) => {
         const phoneRegex = /^\d{10}$/;
         if (!phoneRegex.test(phoneNum)) {
@@ -32,7 +31,6 @@ export default function WaitListRegister() {
         }
         return "";
     };
-
     const validatePersons = (personsCount) => {
         const parsedPersons = parseInt(personsCount);
         if (isNaN(parsedPersons) || parsedPersons <= 0) {

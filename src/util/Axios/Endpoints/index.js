@@ -1,4 +1,4 @@
-const rootURL = process.env.ENVIRONMENT === "dev" 
+const rootURL = process.env.NEXT_PUBLIC_ENVIRONMENT === "dev" 
 ? "http://localhost:3000/api" 
 : "https://resto-nahdi.vercel.app/api";
 

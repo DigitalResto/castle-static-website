@@ -1,12 +1,15 @@
-'use client';
 import { io } from 'socket.io-client';
+import dotenv from 'dotenv'
 let socket;
+dotenv.config();
 
 export const initSocket = () => {
   if (!socket) {
-    const baseUrl = process.env.ENVIRONMENT === "dev" 
+    console.log(process.env.NEXT_PUBLIC_ENVIRONMENT);
+    const baseUrl = process.env.NEXT_PUBLIC_ENVIRONMENT == "dev" 
     ? "http://localhost:3000" 
-    : "https://resto-nahdi.vercel.app/";
+    : "https://resto-nahdi.vercel.app";
+    console.log("Base url ==>",baseUrl);
     socket = io(baseUrl, {
       reconnection: true,
       reconnectionAttempts: 5,
