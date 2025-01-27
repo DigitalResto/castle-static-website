@@ -12,13 +12,13 @@ export default function LandingPage() {
             <section 
                 className="flex flex-col justify-center text-center bg-cover bg-center h-screen"
                 style={{
-                    backgroundImage: 'url(/hero-bg-image.jpg)',
+                    backgroundImage: 'url(/image01.jpg)',
                 }}
             >
                 <Header />
                 <div className="flex flex-col justify-center items-center h-full space-y-4 px-4">
                     <h1>✨</h1>
-                    <h1 className="text-5xl md:text-6xl lg:text-9xl md:font-extralight text-white font-extrabold">
+                    <h1 className="text-8xl md:text-6xl lg:text-9xl md:font-extrabold text-white font-extrabold">
                         Castle Resto
                     </h1>
                 </div>

@@ -1,6 +1,6 @@
 const rootURL = process.env.NEXT_PUBLIC_ENVIRONMENT === "dev" 
 ? "http://localhost:3000/api" 
-: "https://resto-Castle Resto.vercel.app/api";
+: "https://resto-castle.vercel.app/api";
 
 export const ADD_TO_WAITLIST_API = `${rootURL}/add-to-waitlist`;
 export const CHECK_OTP_API = `${rootURL}/check-otp`;

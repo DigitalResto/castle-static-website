@@ -21,7 +21,7 @@ export default async function handler(req, res) {
     const client = new MongoClient(process.env.MONGODB_URI);
     try {
       await client.connect();
-      const database = client.db("Castle Resto-mandi");
+      const database = client.db("nahdi-mandi");
       const collection = database.collection("waitlist");
       const settingsCollection  = database.collection("settings");
       const otp_enabled = await settingsCollection.findOne({})
