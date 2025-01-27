@@ -47,7 +47,7 @@ const menuItems = [
     title: "Catering Services",
     href: "/services/catering",
     description:
-      "Let Nahdi Mandhi make your events special with our exquisite catering services.",
+      "Let Castle Resto make your events special with our exquisite catering services.",
   },
 ];
 
@@ -55,10 +55,10 @@ export default function HeaderMenu() {
   return (
     <NavigationMenu className="">
       <NavigationMenuList>
-        {/* About Nahdi Mandhi */}
+        {/* About Castle Resto */}
         <NavigationMenuItem>
           <NavigationMenuTrigger className="bg-transparent hover:bg-transparent font-extrabold">
-            About Nahdi Mandhi
+            About Castle Resto
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
@@ -69,10 +69,10 @@ export default function HeaderMenu() {
                     href="/"
                   >
                     <div className="mb-2 mt-4 text-lg font-medium">
-                      Nahdi Mandhi
+                      Castle Resto
                     </div>
                     <p className="text-sm leading-tight text-muted-foreground">
-                      Experience the authentic taste of Arabia with Nahdi Mandhi’s specially curated menu, combining traditional flavors and modern dining.
+                      Experience the authentic taste of Arabia with Castle Resto’s specially curated menu, combining traditional flavors and modern dining.
                     </p>
                   </a>
                 </NavigationMenuLink>
@@ -84,7 +84,7 @@ export default function HeaderMenu() {
                 Committed to providing exceptional dining experiences with fresh ingredients and outstanding service.
               </ListItem>
               <ListItem href="/about/story" title="Our Story">
-                Discover how Nahdi Mandhi brings the rich culinary heritage of Arabia to your table.
+                Discover how Castle Resto brings the rich culinary heritage of Arabia to your table.
               </ListItem>
             </ul>
           </NavigationMenuContent>

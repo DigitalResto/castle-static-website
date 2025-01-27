@@ -8,7 +8,7 @@ export const initSocket = () => {
     console.log(process.env.NEXT_PUBLIC_ENVIRONMENT);
     const baseUrl = process.env.NEXT_PUBLIC_ENVIRONMENT == "dev" 
     ? "http://localhost:3000" 
-    : "https://resto-nahdi.vercel.app";
+    : "https://resto-Castle Resto.vercel.app";
     console.log("Base url ==>",baseUrl);
     socket = io(baseUrl, {
       reconnection: true,

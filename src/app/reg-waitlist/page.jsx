@@ -65,9 +65,7 @@ export default function WaitListRegister() {
             if (response.status !== 200) {
                 throw new Error('Failed to register');
             }
-            
             // Emit socket event after successful registration
-            console.log("Response data --------------===>",response.data.data.insertedId);
             socket.emit('new_waitlist_entry', {
                 name,
                 number,
@@ -75,8 +73,11 @@ export default function WaitListRegister() {
                 time: new Date().toLocaleTimeString(),
                 _id: response.data.data.insertedId,
             });
-            
-            setIsOtpStage(true);
+            if(response.data.otp == false){
+                router.push('/success')
+            }else{
+                setIsOtpStage(true);
+            }
         } catch (error) {
             setError(error.message || 'An error occurred while registering');
             console.error(error);
@@ -128,7 +129,7 @@ export default function WaitListRegister() {
     return (
         <div className="flex flex-col md:flex-row h-screen gap-5 overflow-hidden justify-center">
             <div className="flex flex-col items-start justify-center w-full md:w-1/2 px-5 md:px-28">
-                <img src="nahdi-mandi-logo.png" className="w-14 rounded-full" />
+                <img src="Resto-mandi-logo.png" className="w-14 rounded-full" />
                 <h1 className="font-bold text-2xl md:text-3xl text-center md:text-left">
                     {isOtpStage ? "Verify OTP" : "Join our waitlist"}
                 </h1>

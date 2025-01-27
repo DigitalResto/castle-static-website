@@ -12,7 +12,7 @@ import {
   Menu,
   X
 } from 'lucide-react';
-import { fetchDashboardData_FN } from '@/util/Axios/Methods/POST';
+import { fetchDashboardData_FN, UPDATE_OTP_STATUS_FN } from '@/util/Axios/Methods/POST';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -69,11 +69,11 @@ export default function Dashboard() {
 
   const handleOtpToggle = async () => {
     try {
-      // Add your API call here to update OTP settings
+      
       const newOtpStatus = !isOtpEnabled;
-      // await updateOtpSettings(newOtpStatus);
+      const response = await UPDATE_OTP_STATUS_FN(newOtpStatus);
+      console.log(response);
       setIsOtpEnabled(newOtpStatus);
-      // Show success message
       alert(`OTP verification ${newOtpStatus ? 'enabled' : 'disabled'}`);
     } catch (error) {
       console.error('Error updating OTP settings:', error);
@@ -155,7 +155,7 @@ export default function Dashboard() {
         {/* Desktop Header */}
         <div className="hidden md:flex justify-between items-center">
           <div className="flex items-center space-x-4">
-            <img src="/nahdi-mandi-logo.png" alt="Logo" className="h-10 w-10 rounded-full" />
+            <img src="Resto-mandi-logo.png" alt="Logo" className="h-10 w-10 rounded-full" />
             <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
           </div>
           <div className="flex items-center space-x-4">
@@ -195,7 +195,7 @@ export default function Dashboard() {
                 <Menu className="h-6 w-6 text-gray-600" />
               )}
             </button>
-            <img src="/nahdi-mandi-logo.png" alt="Logo" className="h-8 w-8 rounded-full" />
+            <img src="Resto-mandi-logo.png" alt="Logo" className="h-8 w-8 rounded-full" />
             <h1 className="text-xl font-bold text-gray-900">Dashboard</h1>
           </div>
         </div>

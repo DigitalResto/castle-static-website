@@ -7,7 +7,7 @@ export default async function handler(req, res) {
         const {id , status} = req.body;
         console.log(req.body);
       await client.connect();
-      const database = client.db("nahdi-mandi");
+      const database = client.db("Castle Resto-mandi");
       const collection = database.collection("waitlist");
       if (status == 'accept') {
         console.log("Accepted");

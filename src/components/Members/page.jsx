@@ -2,19 +2,19 @@ import React from "react";
 
 const teamMembers = [
   {
-    name: "Muhammed Haris",
+    name: "John Doe",
     position: "Chairman & Managing Director",
-    image: "https://www.nahdimandi.com/static/img/haris.jpeg",
+    image: "https://via.placeholder.com/150",
   },
   {
-    name: "Muhammed Muhsin",
+    name: "Jane Smith",
     position: "Director",
-    image: "https://www.nahdimandi.com/static/img/muhsin.jpeg",
+    image: "https://via.placeholder.com/150",
   },
   {
-    name: "Ashraf",
+    name: "Robert Brown",
     position: "Director",
-    image: "https://www.nahdimandi.com/static/img/ashraf.jpeg",
+    image: "https://via.placeholder.com/150",
   },
 ];
 
@@ -22,7 +22,7 @@ const ProfessionalLeaders = () => {
   return (
     <div className="bg-[#FFF7F2] py-10 px-5">
       <div className="text-center">
-        <h2 className="text-orange-600 uppercase text-sm font-semibold">Expert Chef</h2>
+        <h2 className="text-orange-600 uppercase text-sm font-semibold">Expert Team</h2>
         <h1 className="text-3xl md:text-4xl font-bold mt-2">Professional Leaders</h1>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">

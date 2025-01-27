@@ -13,7 +13,7 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "Nahdi Mandhi",
+  title: "Castle Resto",
   description: "",
 };
 

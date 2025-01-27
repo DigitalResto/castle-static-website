@@ -19,7 +19,7 @@ export default function LandingPage() {
                 <div className="flex flex-col justify-center items-center h-full space-y-4 px-4">
                     <h1>✨</h1>
                     <h1 className="text-5xl md:text-6xl lg:text-9xl md:font-extralight text-white font-extrabold">
-                        Nahdi Mandhi
+                        Castle Resto
                     </h1>
                 </div>
             </section>

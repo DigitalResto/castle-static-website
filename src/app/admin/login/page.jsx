@@ -67,7 +67,7 @@ export default function AdminLogin() {
     return (
         <div className="flex flex-col md:flex-row h-screen gap-5 overflow-hidden justify-center">
             <div className="flex flex-col items-start justify-center w-full md:w-1/2 px-5 md:px-28">
-                <img src="/nahdi-mandi-logo.png" className="w-14 rounded-full" alt="Logo" />
+                <img src="/Resto-mandi-logo.png" className="w-14 rounded-full" alt="Logo" />
                 <h1 className="font-bold text-2xl md:text-3xl text-center md:text-left">
                     Admin Login
                 </h1>

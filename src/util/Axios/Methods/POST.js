@@ -6,6 +6,7 @@ import {
     GET_WAITLIST_API, 
     ADMIN_LOGIN_API,
     FETCH_DASHBOARD_DATA_API,
+    UPDATE_OTP_STATUS_API
 
 } from "../Endpoints";
 export const addToWaitList_FN = (data) =>{
@@ -49,8 +50,15 @@ export const Admin_Login_FN = (data)=>{
 
 export const fetchDashboardData_FN = ()=>{
     try{
-        console.log("Feting...")
         return axiosInstance.get(FETCH_DASHBOARD_DATA_API);
+    }catch(err){
+        return err;
+    }
+}
+
+export const UPDATE_OTP_STATUS_FN = (data)=>{
+    try{
+        return axiosInstance.post(UPDATE_OTP_STATUS_API, {data});
     }catch(err){
         return err;
     }
