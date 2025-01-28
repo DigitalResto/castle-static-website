@@ -1,55 +1,55 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useInView, useSpring } from 'framer-motion';
-import { Star, Google, ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const reviews = [
   {
     id: 1,
-    username: "Sarah Johnson",
+    username: "Vineeth Krishnan C",
     rating: 5,
-    message: "Absolutely amazing experience! The ambiance was perfect and the food was extraordinary. Will definitely be coming back!",
-    platform: "Google",
-    date: "2 days ago"
+    message: "If you're looking for a delicious Mandi experience, this restaurant is a must-visit! The unlimited Mandi is incredibly tasty and perfect for sharing with friends. The customer service is excellent, making every visit enjoyable. Highly recommend it for anyone craving authentic flavors and a great dining atmosphere!",
+    link: "https://goo.gl/maps/example1",
+    date: "2 months ago"
   },
   {
     id: 2,
-    username: "Michael Chen",
+    username: "Koushik Tamilmaran",
     rating: 4,
-    message: "Great service and delicious food. The wine selection was impressive and the staff were very knowledgeable.",
-    platform: "Google",
-    date: "1 week ago"
+    message: "A very detailed Mandi place that offers great combinations and a great view. The service is great and the ambience is great. The prices are moderate to high. A good place for dates. And the taste is good to very good. The variety of food is also pretty high with lot of options for Mandi and Al Fam.",
+    link: "https://goo.gl/maps/example2",
+    date: "4 months ago"
   },
   {
     id: 3,
-    username: "Emma Williams",
-    rating: 5,
-    message: "One of the best dining experiences I've had in years. The chef's tasting menu was outstanding!",
-    platform: "Google",
-    date: "2 weeks ago"
+    username: "Crystal Snow",
+    rating: 4,
+    message: "One of the nice restaurants I've visited. The ambience as well as the staff behavior was good😊 We ordered Corn ginger and garlic, Mushroom manchurian, Paneer Tikka masala, Naan, Laccha paratha and Veg schezwan fried rice. All of them were delicious except Laccha paratha, which was much oily. Overall good experience😎would visit again!",
+    link: "https://goo.gl/maps/example3", 
+    date: "5 months ago"
   },
   {
     id: 4,
-    username: "David Rodriguez",
+    username: "Danish Jaffar",
     rating: 5,
-    message: "Exceptional dining experience! The fusion of flavors in each dish was perfectly balanced.",
-    platform: "Google",
-    date: "3 weeks ago"
+    message: "I've been visiting this restaurant for the past 2.5 years, and it never fails to impress me! The food is consistently delicious, with every dish prepared to perfection. The staff is incredibly welcoming, attentive, and always make me feel at home. I highly recommend this place to anyone looking for an exceptional dining experience.",
+    link: "https://goo.gl/maps/example4",
+    date: "1 week ago" 
   },
   {
     id: 5,
-    username: "Lisa Thompson",
-    rating: 4,
-    message: "Beautiful atmosphere and fantastic service. The dessert menu was particularly impressive!",
-    platform: "Google",
+    username: "Nilesh Pawar",  
+    rating: 5,
+    message: "I have been visiting this fantastic hotel in BTM Layout, Bangalore, for the past year, and it has never failed to impress me. The food here is consistently delightful, offering a perfect blend of taste and quality. The staff is well-trained, courteous, and always goes the extra mile to ensure a pleasant dining experience.",
+    link: "https://goo.gl/maps/example5",
     date: "1 month ago"
   },
-  {
+  {  
     id: 6,
-    username: "James Wilson",
-    rating: 5,
-    message: "The tasting menu was a culinary journey! Each course was better than the last.",
-    platform: "Google",
-    date: "1 month ago"
+    username: "Ann Das",
+    rating: 5, 
+    message: "I had the pleasure of lunch at Castle Restaurant today, and I must say, it was an incredible experience! The ambiance was stunning, with elegant decor and a warm, inviting atmosphere. The staff were attentive, friendly, and provided excellent service throughout my visit.",
+    link: "https://goo.gl/maps/example6",
+    date: "2 weeks ago"
   }
 ];
 
@@ -57,8 +57,10 @@ const ReviewCard = ({ review }) => {
   const stars = Array(5).fill(0);
   
   return (
-    <motion.div
-      className="bg-white rounded-lg shadow-lg p-6 mb-6 min-w-[300px] md:min-w-[350px]"
+    <motion.a 
+      href={review.link}
+      target="_blank"
+      className="bg-white rounded-lg shadow-lg p-6 mb-6 min-w-[300px] md:min-w-[350px] block"
       whileHover={{ 
         y: -10,
         transition: { duration: 0.2 }
@@ -109,13 +111,6 @@ const ReviewCard = ({ review }) => {
             </motion.div>
           </div>
         </motion.div>
-        <motion.div 
-          whileHover={{ scale: 1.2, rotate: 360 }}
-          transition={{ duration: 0.5 }}
-          className="flex items-center"
-        >
-          {/* <Google size={20} className="text-[#7D0148]" /> */}
-        </motion.div>
       </div>
       <motion.p 
         initial={{ opacity: 0 }}
@@ -126,7 +121,7 @@ const ReviewCard = ({ review }) => {
         {review.message}
       </motion.p>
       <span className="text-sm text-gray-400">{review.date}</span>
-    </motion.div>
+    </motion.a>
   );
 };
 
@@ -134,58 +129,28 @@ const ReviewSection = () => {
   const containerRef = useRef(null);
   const headingRef = useRef(null);
   const isInView = useInView(headingRef, { once: true, margin: "-100px" });
-  const [scrollX, setScrollX] = useState(0);
-  const [maxScroll, setMaxScroll] = useState(0);
-  const [duplicatedReviews, setDuplicatedReviews] = useState([]);
+  const [scrollX, setScrollX] = React.useState(0);
+  const [maxScroll, setMaxScroll] = React.useState(0);
 
-  useEffect(() => {
-    // Create triple set of reviews for smooth infinite scroll
-    setDuplicatedReviews([...reviews, ...reviews, ...reviews]);
-  }, []);
-
-  useEffect(() => {
+  React.useEffect(() => {
     if (containerRef.current) {
       setMaxScroll(containerRef.current.scrollWidth - containerRef.current.clientWidth);
     }
-  }, [duplicatedReviews]);
+  }, []);
 
   const scroll = (direction) => {
     if (containerRef.current) {
-      const container = containerRef.current;
-      const cardWidth = 350; // Width of a single card
-      const scrollAmount = direction === 'left' ? -cardWidth : cardWidth;
-      const currentScroll = container.scrollLeft;
-      const reviewsSetWidth = reviews.length * cardWidth;
-
-      let newScrollX = currentScroll + scrollAmount;
-
-      // Check if we need to loop
-      if (currentScroll >= reviewsSetWidth * 2) {
-        // If we're in the last set, jump back to middle set
-        newScrollX = reviewsSetWidth + (currentScroll % reviewsSetWidth);
-        container.scrollLeft = newScrollX - scrollAmount;
-      } else if (currentScroll <= 0 && direction === 'left') {
-        // If we're at the start and going left, jump to middle set
-        newScrollX = reviewsSetWidth;
-        container.scrollLeft = newScrollX - scrollAmount;
-      }
-
-      container.scrollTo({
+      const newScrollX = direction === 'left' 
+        ? Math.max(scrollX - 400, 0)
+        : Math.min(scrollX + 400, maxScroll);
+      
+      containerRef.current.scrollTo({
         left: newScrollX,
         behavior: 'smooth'
       });
       setScrollX(newScrollX);
     }
   };
-
-  // Auto scroll
-  useEffect(() => {
-    const interval = setInterval(() => {
-      scroll('right');
-    }, 3000); // Scroll every 3 seconds
-
-    return () => clearInterval(interval);
-  }, [scrollX]);
 
   return (
     <div className="py-16 px-4 bg-gray-50 overflow-hidden">
@@ -205,7 +170,10 @@ const ReviewSection = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => scroll('left')}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-lg"
+          className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-lg ${
+            scrollX === 0 ? 'opacity-50 cursor-not-allowed' : 'opacity-100'
+          }`}
+          disabled={scrollX === 0}
         >
           <ChevronLeft size={24} className="text-[#7D0148]" />
         </motion.button>
@@ -214,7 +182,10 @@ const ReviewSection = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => scroll('right')}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-lg"
+          className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-lg ${
+            scrollX >= maxScroll ? 'opacity-50 cursor-not-allowed' : 'opacity-100'
+          }`}
+          disabled={scrollX >= maxScroll}
         >
           <ChevronRight size={24} className="text-[#7D0148]" />
         </motion.button>
@@ -226,26 +197,13 @@ const ReviewSection = () => {
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-          {duplicatedReviews.map((review, index) => (
-            <ReviewCard key={`${review.id}-${index}`} review={review} />
+          {reviews.map((review) => (
+            <ReviewCard key={review.id} review={review} />
           ))}
         </motion.div>
       </div>
     </div>
   );
 };
-
-// Add custom scrollbar hiding
-const style = document.createElement('style');
-style.textContent = `
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-`;
-document.head.appendChild(style);
 
 export default ReviewSection;
