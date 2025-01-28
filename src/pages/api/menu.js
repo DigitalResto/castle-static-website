@@ -7,36 +7,58 @@ export default async function handler(req, res) {
     await client.connect();
     const db = client.db();
     const menuCollection = db.collection("menu");
+    const categoryCollection = db.collection("categories");
 
     switch (req.method) {
       case "GET":
+        // Get all categories first
+        const categories = await categoryCollection.find({}).toArray();
+        // Get all menu items
         const menuItems = await menuCollection.find({}).toArray();
-        res.status(200).json(menuItems);
+        // Combine the data
+        const menuData = {
+          categories: categories,
+          items: menuItems,
+        };
+        res.status(200).json(menuData);
         break;
 
       case "POST":
-        const { category, title, price, description, imageUrl } = req.body;
-        
-        if (!category || !title || !price) {
-          return res.status(400).json({ message: "Missing required fields" });
+        if (req.body.type === "category") {
+          // Handle category creation
+          const { name } = req.body;
+          const categoryResult = await categoryCollection.insertOne({
+            name,
+            createdAt: new Date(),
+          });
+          res
+            .status(201)
+            .json({ message: "Category created", category: categoryResult });
+        } else {
+          // Handle menu item creation
+          const { categoryId, title, price, description, imageUrl } = req.body;
+
+          if (!categoryId || !title || !price) {
+            return res.status(400).json({ message: "Missing required fields" });
+          }
+
+          const newItem = {
+            categoryId: new ObjectId(categoryId),
+            title,
+            price: parseFloat(price),
+            description: description || "",
+            imageUrl: imageUrl || "",
+            createdAt: new Date(),
+          };
+
+          const result = await menuCollection.insertOne(newItem);
+          res.status(201).json({ message: "Menu item created", item: result });
         }
-
-        const newItem = {
-          category,
-          title,
-          price: parseFloat(price),
-          description: description || "",
-          imageUrl: imageUrl || "",
-          createdAt: new Date()
-        };
-
-        const result = await menuCollection.insertOne(newItem);
-        res.status(201).json({ message: "Menu item created", item: result });
         break;
 
       case "PUT":
         const { id, ...updateData } = req.body;
-        
+
         if (!id) {
           return res.status(400).json({ message: "Item ID is required" });
         }
@@ -46,18 +68,30 @@ export default async function handler(req, res) {
           { $set: updateData }
         );
 
-        res.status(200).json({ message: "Menu item updated", result: updateResult });
+        res
+          .status(200)
+          .json({ message: "Menu item updated", result: updateResult });
         break;
 
       case "DELETE":
-        const { itemId } = req.body;
-        
-        if (!itemId) {
-          return res.status(400).json({ message: "Item ID is required" });
+        if (req.body.type === "category") {
+          const { categoryId } = req.body;
+          // Check if category has items
+          const hasItems = await menuCollection.findOne({
+            categoryId: new ObjectId(categoryId),
+          });
+          if (hasItems) {
+            return res
+              .status(400)
+              .json({ message: "Cannot delete category with existing items" });
+          }
+          await categoryCollection.deleteOne({ _id: new ObjectId(categoryId) });
+          res.status(200).json({ message: "Category deleted" });
+        } else {
+          const { itemId } = req.body;
+          await menuCollection.deleteOne({ _id: new ObjectId(itemId) });
+          res.status(200).json({ message: "Menu item deleted" });
         }
-
-        await menuCollection.deleteOne({ _id: new ObjectId(itemId) });
-        res.status(200).json({ message: "Menu item deleted" });
         break;
 
       default:
