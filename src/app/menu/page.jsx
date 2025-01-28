@@ -128,7 +128,7 @@ export default function Menu() {
                           </p>
                         </div>
                         <p className="text-xl font-bold text-red-600">
-                          ${item.price.toFixed(2)}
+                          ₹{item.price}
                         </p>
                       </div>
                       {item.description && (
