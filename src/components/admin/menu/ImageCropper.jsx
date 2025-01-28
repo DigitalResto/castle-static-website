@@ -109,7 +109,6 @@ const ImageCropper = ({ onImageChange, initialImage, disabled }) => {
       canvas.toBlob(
         (blob) => {
           if (!blob) {
-            console.error("Canvas is empty");
             return;
           }
           resolve(blob);
