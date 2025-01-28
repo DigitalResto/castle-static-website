@@ -55,6 +55,7 @@ const ImageCropper = ({ onImageChange, initialImage, disabled }) => {
       setIsLoading(true);
       const imageUrl = URL.createObjectURL(file);
       setSrc(imageUrl);
+      onImageChange(file, imageUrl);
     } catch (error) {
       console.error("Error loading image:", error);
       alert("Error loading image. Please try again.");
@@ -122,6 +123,15 @@ const ImageCropper = ({ onImageChange, initialImage, disabled }) => {
   const handleCompleteCrop = useCallback(
     async (crop) => {
       setCompletedCrop(crop);
+      if (!crop?.width && !crop?.height && imgRef.current) {
+        const fullImageBlob = await new Promise((resolve) => {
+          fetch(src)
+            .then((res) => res.blob())
+            .then((blob) => resolve(blob));
+        });
+        onImageChange(fullImageBlob, src);
+        return;
+      }
       if (crop?.width && crop?.height) {
         try {
           const croppedBlob = await getCroppedImg();
@@ -134,7 +144,7 @@ const ImageCropper = ({ onImageChange, initialImage, disabled }) => {
         }
       }
     },
-    [getCroppedImg, onImageChange]
+    [getCroppedImg, onImageChange, src]
   );
 
   const resetImage = () => {

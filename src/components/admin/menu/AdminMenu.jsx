@@ -90,7 +90,7 @@ export default function AdminMenu() {
         imageUrl = await uploadToCloudinary(formData.imageBlob);
       }
 
-      if (!imageUrl && !editingItem) {
+      if (!imageUrl && !editingItem && !formData.imageBlob) {
         showAlert("Please add an image for the menu item");
         return;
       }
