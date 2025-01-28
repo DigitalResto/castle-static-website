@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Plus, Edit, Trash } from "lucide-react";
+import { Plus, Edit, Trash, Upload, X } from "lucide-react";
 
 export default function AdminMenu() {
   const [menuData, setMenuData] = useState({ categories: [], items: [] });
@@ -9,6 +9,9 @@ export default function AdminMenu() {
   const [isAddingItem, setIsAddingItem] = useState(false);
   const [isAddingCategory, setIsAddingCategory] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [formData, setFormData] = useState({
     categoryId: "",
     title: "",
@@ -83,14 +86,80 @@ export default function AdminMenu() {
     }
   };
 
+  const handleImageSelect = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Check file size (5MB limit)
+      if (file.size > 5 * 1024 * 1024) {
+        alert("File size must be less than 5MB");
+        return;
+      }
+
+      // Check file type
+      if (!file.type.startsWith("image/")) {
+        alert("Only image files are allowed");
+        return;
+      }
+
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const uploadToCloudinary = async (file) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "restaurant_menu");
+      formData.append("api_key", process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY);
+      formData.append("timestamp", Date.now() / 1000);
+      formData.append("folder", "restaurant");
+
+      const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+      console.log("Uploading to cloud name:", cloudName);
+
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const responseData = await response.json();
+      console.log("Cloudinary response:", responseData);
+
+      if (!response.ok) {
+        throw new Error(responseData.error?.message || "Upload failed");
+      }
+
+      return responseData.secure_url;
+    } catch (error) {
+      console.error("Detailed error:", error);
+      throw error;
+    }
+  };
+
   const handleSubmitItem = async (e) => {
     e.preventDefault();
     try {
+      let imageUrl = formData.imageUrl;
+
+      if (imageFile) {
+        setUploadProgress(10);
+        imageUrl = await uploadToCloudinary(imageFile);
+        setUploadProgress(100);
+      }
+
       const url = "/api/menu";
       const method = editingItem ? "PUT" : "POST";
       const body = editingItem
-        ? { ...formData, id: editingItem._id }
-        : formData;
+        ? { ...formData, id: editingItem._id, imageUrl }
+        : { ...formData, imageUrl };
 
       const response = await fetch(url, {
         method,
@@ -109,6 +178,9 @@ export default function AdminMenu() {
           description: "",
           imageUrl: "",
         });
+        setImageFile(null);
+        setImagePreview(null);
+        setUploadProgress(0);
       }
     } catch (error) {
       console.error("Error saving menu item:", error);
@@ -142,6 +214,9 @@ export default function AdminMenu() {
       description: item.description || "",
       imageUrl: item.imageUrl || "",
     });
+    if (item.imageUrl) {
+      setImagePreview(item.imageUrl);
+    }
     setIsAddingItem(true);
   };
 
@@ -270,17 +345,63 @@ export default function AdminMenu() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">
-                  Image URL
-                </label>
-                <input
-                  type="text"
-                  value={formData.imageUrl}
-                  onChange={(e) =>
-                    setFormData({ ...formData, imageUrl: e.target.value })
-                  }
-                  className="w-full p-2 border rounded"
-                />
+                <label className="block text-sm font-medium mb-1">Image</label>
+                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg">
+                  <div className="space-y-1 text-center">
+                    {imagePreview ? (
+                      <div className="relative w-full max-w-[200px] mx-auto">
+                        <img
+                          src={imagePreview}
+                          alt="Preview"
+                          className="rounded-lg"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setImageFile(null);
+                            setImagePreview(null);
+                            setFormData({ ...formData, imageUrl: "" });
+                          }}
+                          className="absolute -top-2 -right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600"
+                        >
+                          <X size={16} />
+                        </button>
+                      </div>
+                    ) : (
+                      <>
+                        <Upload className="mx-auto h-12 w-12 text-gray-400" />
+                        <div className="flex text-sm text-gray-600">
+                          <label
+                            htmlFor="file-upload"
+                            className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500"
+                          >
+                            <span>Upload a file</span>
+                            <input
+                              id="file-upload"
+                              name="file-upload"
+                              type="file"
+                              className="sr-only"
+                              accept="image/*"
+                              onChange={handleImageSelect}
+                            />
+                          </label>
+                          <p className="pl-1">or drag and drop</p>
+                        </div>
+                        <p className="text-xs text-gray-500">
+                          PNG, JPG, GIF up to 5MB
+                        </p>
+                      </>
+                    )}
+                  </div>
+                </div>
+                {uploadProgress > 0 && uploadProgress < 100 && (
+                  <div className="w-full h-2 bg-gray-200 rounded-full mt-2">
+                    <div
+                      className="h-full bg-blue-600 rounded-full"
+                      style={{ width: `${uploadProgress}%` }}
+                    />
+                  </div>
+                )}
               </div>
               <div className="flex justify-end gap-2">
                 <button
@@ -288,6 +409,8 @@ export default function AdminMenu() {
                   onClick={() => {
                     setIsAddingItem(false);
                     setEditingItem(null);
+                    setImageFile(null);
+                    setImagePreview(null);
                   }}
                   className="px-4 py-2 border rounded"
                 >
