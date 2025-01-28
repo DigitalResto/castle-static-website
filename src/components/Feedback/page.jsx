@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useInView, useSpring } from 'framer-motion';
 import { Star, Google, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -114,7 +114,7 @@ const ReviewCard = ({ review }) => {
           transition={{ duration: 0.5 }}
           className="flex items-center"
         >
-          {/* <Google size={20} className="text-[#7D0148]" /> */}
+
         </motion.div>
       </div>
       <motion.p 
@@ -134,58 +134,28 @@ const ReviewSection = () => {
   const containerRef = useRef(null);
   const headingRef = useRef(null);
   const isInView = useInView(headingRef, { once: true, margin: "-100px" });
-  const [scrollX, setScrollX] = useState(0);
-  const [maxScroll, setMaxScroll] = useState(0);
-  const [duplicatedReviews, setDuplicatedReviews] = useState([]);
+  const [scrollX, setScrollX] = React.useState(0);
+  const [maxScroll, setMaxScroll] = React.useState(0);
 
-  useEffect(() => {
-    // Create triple set of reviews for smooth infinite scroll
-    setDuplicatedReviews([...reviews, ...reviews, ...reviews]);
-  }, []);
-
-  useEffect(() => {
+  React.useEffect(() => {
     if (containerRef.current) {
       setMaxScroll(containerRef.current.scrollWidth - containerRef.current.clientWidth);
     }
-  }, [duplicatedReviews]);
+  }, []);
 
   const scroll = (direction) => {
     if (containerRef.current) {
-      const container = containerRef.current;
-      const cardWidth = 350; // Width of a single card
-      const scrollAmount = direction === 'left' ? -cardWidth : cardWidth;
-      const currentScroll = container.scrollLeft;
-      const reviewsSetWidth = reviews.length * cardWidth;
-
-      let newScrollX = currentScroll + scrollAmount;
-
-      // Check if we need to loop
-      if (currentScroll >= reviewsSetWidth * 2) {
-        // If we're in the last set, jump back to middle set
-        newScrollX = reviewsSetWidth + (currentScroll % reviewsSetWidth);
-        container.scrollLeft = newScrollX - scrollAmount;
-      } else if (currentScroll <= 0 && direction === 'left') {
-        // If we're at the start and going left, jump to middle set
-        newScrollX = reviewsSetWidth;
-        container.scrollLeft = newScrollX - scrollAmount;
-      }
-
-      container.scrollTo({
+      const newScrollX = direction === 'left' 
+        ? Math.max(scrollX - 400, 0)
+        : Math.min(scrollX + 400, maxScroll);
+      
+      containerRef.current.scrollTo({
         left: newScrollX,
         behavior: 'smooth'
       });
       setScrollX(newScrollX);
     }
   };
-
-  // Auto scroll
-  useEffect(() => {
-    const interval = setInterval(() => {
-      scroll('right');
-    }, 3000); // Scroll every 3 seconds
-
-    return () => clearInterval(interval);
-  }, [scrollX]);
 
   return (
     <div className="py-16 px-4 bg-gray-50 overflow-hidden">
@@ -205,7 +175,10 @@ const ReviewSection = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => scroll('left')}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-lg"
+          className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-lg ${
+            scrollX === 0 ? 'opacity-50 cursor-not-allowed' : 'opacity-100'
+          }`}
+          disabled={scrollX === 0}
         >
           <ChevronLeft size={24} className="text-[#7D0148]" />
         </motion.button>
@@ -214,7 +187,10 @@ const ReviewSection = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => scroll('right')}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-lg"
+          className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-lg ${
+            scrollX >= maxScroll ? 'opacity-50 cursor-not-allowed' : 'opacity-100'
+          }`}
+          disabled={scrollX >= maxScroll}
         >
           <ChevronRight size={24} className="text-[#7D0148]" />
         </motion.button>
@@ -226,26 +202,13 @@ const ReviewSection = () => {
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-          {duplicatedReviews.map((review, index) => (
-            <ReviewCard key={`${review.id}-${index}`} review={review} />
+          {reviews.map((review) => (
+            <ReviewCard key={review.id} review={review} />
           ))}
         </motion.div>
       </div>
     </div>
   );
 };
-
-// Add custom scrollbar hiding
-const style = document.createElement('style');
-style.textContent = `
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-`;
-document.head.appendChild(style);
 
 export default ReviewSection;
