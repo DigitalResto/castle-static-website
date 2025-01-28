@@ -13,6 +13,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^16.4.7",
+    "framer-motion": "^12.0.6",
     "iron-session": "^8.0.4",
     "lottie-react": "^2.4.0",
     "lucide-react": "^0.468.0",
