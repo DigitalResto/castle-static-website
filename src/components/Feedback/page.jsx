@@ -1,55 +1,55 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useInView, useSpring } from 'framer-motion';
-import { Star, Google, ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion, useInView } from 'framer-motion';
+import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const reviews = [
   {
     id: 1,
-    username: "Sarah Johnson",
+    username: "Vineeth Krishnan C",
     rating: 5,
-    message: "Absolutely amazing experience! The ambiance was perfect and the food was extraordinary. Will definitely be coming back!",
-    platform: "Google",
-    date: "2 days ago"
+    message: "If you're looking for a delicious Mandi experience, this restaurant is a must-visit! The unlimited Mandi is incredibly tasty and perfect for sharing with friends. The customer service is excellent, making every visit enjoyable. Highly recommend it for anyone craving authentic flavors and a great dining atmosphere!",
+    link: "https://goo.gl/maps/example1",
+    date: "2 months ago"
   },
   {
     id: 2,
-    username: "Michael Chen",
+    username: "Koushik Tamilmaran",
     rating: 4,
-    message: "Great service and delicious food. The wine selection was impressive and the staff were very knowledgeable.",
-    platform: "Google",
-    date: "1 week ago"
+    message: "A very detailed Mandi place that offers great combinations and a great view. The service is great and the ambience is great. The prices are moderate to high. A good place for dates. And the taste is good to very good. The variety of food is also pretty high with lot of options for Mandi and Al Fam.",
+    link: "https://goo.gl/maps/example2",
+    date: "4 months ago"
   },
   {
     id: 3,
-    username: "Emma Williams",
-    rating: 5,
-    message: "One of the best dining experiences I've had in years. The chef's tasting menu was outstanding!",
-    platform: "Google",
-    date: "2 weeks ago"
+    username: "Crystal Snow",
+    rating: 4,
+    message: "One of the nice restaurants I've visited. The ambience as well as the staff behavior was good😊 We ordered Corn ginger and garlic, Mushroom manchurian, Paneer Tikka masala, Naan, Laccha paratha and Veg schezwan fried rice. All of them were delicious except Laccha paratha, which was much oily. Overall good experience😎would visit again!",
+    link: "https://goo.gl/maps/example3", 
+    date: "5 months ago"
   },
   {
     id: 4,
-    username: "David Rodriguez",
+    username: "Danish Jaffar",
     rating: 5,
-    message: "Exceptional dining experience! The fusion of flavors in each dish was perfectly balanced.",
-    platform: "Google",
-    date: "3 weeks ago"
+    message: "I've been visiting this restaurant for the past 2.5 years, and it never fails to impress me! The food is consistently delicious, with every dish prepared to perfection. The staff is incredibly welcoming, attentive, and always make me feel at home. I highly recommend this place to anyone looking for an exceptional dining experience.",
+    link: "https://goo.gl/maps/example4",
+    date: "1 week ago" 
   },
   {
     id: 5,
-    username: "Lisa Thompson",
-    rating: 4,
-    message: "Beautiful atmosphere and fantastic service. The dessert menu was particularly impressive!",
-    platform: "Google",
+    username: "Nilesh Pawar",  
+    rating: 5,
+    message: "I have been visiting this fantastic hotel in BTM Layout, Bangalore, for the past year, and it has never failed to impress me. The food here is consistently delightful, offering a perfect blend of taste and quality. The staff is well-trained, courteous, and always goes the extra mile to ensure a pleasant dining experience.",
+    link: "https://goo.gl/maps/example5",
     date: "1 month ago"
   },
-  {
+  {  
     id: 6,
-    username: "James Wilson",
-    rating: 5,
-    message: "The tasting menu was a culinary journey! Each course was better than the last.",
-    platform: "Google",
-    date: "1 month ago"
+    username: "Ann Das",
+    rating: 5, 
+    message: "I had the pleasure of lunch at Castle Restaurant today, and I must say, it was an incredible experience! The ambiance was stunning, with elegant decor and a warm, inviting atmosphere. The staff were attentive, friendly, and provided excellent service throughout my visit.",
+    link: "https://goo.gl/maps/example6",
+    date: "2 weeks ago"
   }
 ];
 
@@ -57,8 +57,10 @@ const ReviewCard = ({ review }) => {
   const stars = Array(5).fill(0);
   
   return (
-    <motion.div
-      className="bg-white rounded-lg shadow-lg p-6 mb-6 min-w-[300px] md:min-w-[350px]"
+    <motion.a 
+      href={review.link}
+      target="_blank"
+      className="bg-white rounded-lg shadow-lg p-6 mb-6 min-w-[300px] md:min-w-[350px] block"
       whileHover={{ 
         y: -10,
         transition: { duration: 0.2 }
@@ -109,13 +111,6 @@ const ReviewCard = ({ review }) => {
             </motion.div>
           </div>
         </motion.div>
-        <motion.div 
-          whileHover={{ scale: 1.2, rotate: 360 }}
-          transition={{ duration: 0.5 }}
-          className="flex items-center"
-        >
-
-        </motion.div>
       </div>
       <motion.p 
         initial={{ opacity: 0 }}
@@ -126,7 +121,7 @@ const ReviewCard = ({ review }) => {
         {review.message}
       </motion.p>
       <span className="text-sm text-gray-400">{review.date}</span>
-    </motion.div>
+    </motion.a>
   );
 };
 
