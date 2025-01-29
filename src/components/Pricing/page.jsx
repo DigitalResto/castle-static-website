@@ -4,7 +4,12 @@ const PricingMenu = () => {
   const [activeTab, setActiveTab] = useState("AL FAHM");
 
   const tabs = ["AL FAHM", "Mandi", "Shakes"];
-
+  const handleWhatsAppClick = (item) => {
+    const phoneNumber = "918593082125";
+    const message = `I would like to try out ${item.name}`;
+    const whatsappUrl = `https://wa.me/+91${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
   const menuItems = [
     {
       category: "AL FAHM",
@@ -229,11 +234,12 @@ const PricingMenu = () => {
           ))}
         </div>
 
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+<div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
           {activeItems.map((item, index) => (
             <div
               key={index}
-              className="flex items-center bg-white shadow-lg rounded-lg overflow-hidden"
+              className="flex items-center bg-white shadow-lg rounded-lg overflow-hidden hover:cursor-pointer"
+              onClick={() => handleWhatsAppClick(item)}
             >
               <img
                 src={item.image}
@@ -252,6 +258,7 @@ const PricingMenu = () => {
             </div>
           ))}
         </div>
+
       </div>
     </div>
   );
