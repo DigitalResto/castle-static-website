@@ -10,7 +10,7 @@ import ChooseYourItems from "../Menu/page";
 import PricingMenu from "../Pricing/page";
 
 const AnimatedTitle = () => {
-  const letters = "Castle".split("");
+  const letters = "Castle Resto".split("");
   
   return (
     <motion.div 
