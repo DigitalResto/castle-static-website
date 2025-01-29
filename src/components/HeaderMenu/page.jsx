@@ -33,31 +33,31 @@ import {
 const menuItems = [
   {
     title: "Signature Dishes",
-    href: "/menu/signature-dishes",
+    href: "/menu",
     description: "Explore our mouthwatering signature dishes, including our famous Mandhi and Kabsa specials.",
     icon: <Signature className="w-4 h-4 text-amber-600" />
   },
   {
     title: "Appetizers",
-    href: "/menu/appetizers",
+    href: "/menu",
     description: "Start your meal with our delectable range of authentic appetizers.",
     icon: <Soup className="w-4 h-4 text-green-600" />
   },
   {
     title: "Desserts",
-    href: "/menu/desserts",
+    href: "/menu",
     description: "Indulge in our delightful selection of traditional and modern desserts.",
     icon: <Cake className="w-4 h-4 text-pink-600" />
   },
   {
     title: "Beverages",
-    href: "/menu/beverages",
+    href: "/menu",
     description: "Quench your thirst with our refreshing drinks and exotic teas.",
     icon: <Wine className="w-4 h-4 text-purple-600" />
   },
   {
     title: "Special Offers",
-    href: "/menu/special-offers",
+    href: "/menu",
     description: "Don't miss our exclusive offers and combo meals for a perfect dining experience.",
     icon: <Tag className="w-4 h-4 text-red-600" />
   },
