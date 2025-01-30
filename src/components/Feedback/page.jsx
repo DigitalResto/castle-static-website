@@ -1,82 +1,101 @@
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 
 const reviews = [
   {
     id: 1,
-    username: "Vineeth Krishnan C",
-    rating: 5,
-    message: "If you're looking for a delicious Mandi experience, this restaurant is a must-visit! The unlimited Mandi is incredibly tasty and perfect for sharing with friends. The customer service is excellent, making every visit enjoyable. Highly recommend it for anyone craving authentic flavors and a great dining atmosphere!",
-    link: "https://goo.gl/maps/example1",
-    date: "2 months ago"
+    username: "Anshid Rahman",
+    rating: 4,
+    message:
+      "One of the Restaurant in Bangalore, situated in Madiwala. Best food spot in Madiwala. They have variety of food options. Their mandi is special in the menu. They do accept payment as UPI and Cash. They accept party orders also. Nice ambience and parking is limited. Service is good. Food quality is good",
+    link: "https://g.co/kgs/EMTQeoU",
+    date: "a month ago",
+    imageUrl:
+      "https://lh3.googleusercontent.com/a-/ALV-UjWbFbNdGNuELLzchwfZlcOzyuyGI-2qdvC8WdL1ZNVtaS_DdhQZMQ=s64-c-rp-mo-ba6-br100",
   },
   {
     id: 2,
-    username: "Koushik Tamilmaran",
-    rating: 4,
-    message: "A very detailed Mandi place that offers great combinations and a great view. The service is great and the ambience is great. The prices are moderate to high. A good place for dates. And the taste is good to very good. The variety of food is also pretty high with lot of options for Mandi and Al Fam.",
-    link: "https://goo.gl/maps/example2",
-    date: "4 months ago"
+    username: "Shimil Mohandas",
+    rating: 5,
+    message:
+      "As an Arabic food enthusiast, I was blown away by the authentic flavors and outstanding service at this restaurant! The Madhghut was absolutely delicious, and every bite was a testament to the chef's skill. If you're in Bangalore, this place is a must-visit for a truly exceptional dining experience that will leave you craving for more.",
+    link: "https://g.co/kgs/gi8sxC5",
+    date: "1 month ago",
+    imageUrl:
+      "https://lh3.googleusercontent.com/a-/ALV-UjU_pWEukgi4ccZMk3S7DWhwQ_JK3rpZNfPqd6QQ2UcglkezhlH4KQ=s64-c-rp-mo-ba5-br100",
   },
   {
     id: 3,
-    username: "Crystal Snow",
-    rating: 4,
-    message: "One of the nice restaurants I've visited. The ambience as well as the staff behavior was good😊 We ordered Corn ginger and garlic, Mushroom manchurian, Paneer Tikka masala, Naan, Laccha paratha and Veg schezwan fried rice. All of them were delicious except Laccha paratha, which was much oily. Overall good experience😎would visit again!",
-    link: "https://goo.gl/maps/example3", 
-    date: "5 months ago"
+    username: "George Francis",
+    rating: 5,
+    message:
+      "Castle Restaurant serves one of the best Mandi in Bangalore. Located in the busy streets of Madiwala, getting parking for cars would be a pain. They have limited seating at the outlet near Tea Time, but service is relatively quick, so we didn't have to wait much to get seated.",
+    link: "https://g.co/kgs/GVuLewL",
+    date: "3 months ago",
+    imageUrl:
+      "https://lh3.googleusercontent.com/a-/ALV-UjW6siPv_u72Rwi7DVXamNAKSQt7mWndtcEYlB1_WT_xDvLnfitJ_w=s64-c-rp-mo-ba6-br100",
   },
   {
     id: 4,
-    username: "Danish Jaffar",
-    rating: 5,
-    message: "I've been visiting this restaurant for the past 2.5 years, and it never fails to impress me! The food is consistently delicious, with every dish prepared to perfection. The staff is incredibly welcoming, attentive, and always make me feel at home. I highly recommend this place to anyone looking for an exceptional dining experience.",
-    link: "https://goo.gl/maps/example4",
-    date: "1 week ago" 
+    username: "Nabeel Muhammed",
+    rating: 4,
+    message:
+      "Had their masala shawai mandi and Malabar chicken biriyani. Tasted above average. The shawai chicken was juicy and tender.",
+    link: "https://g.co/kgs/aBF7czx",
+    date: "2 weeks ago",
+    imageUrl:
+      "https://lh3.googleusercontent.com/a-/ALV-UjXB0sgzd67yzQsXso5mEvRknLDFC8JWdu50neGrseEWSekf304j=s64-c-rp-mo-ba4-br100",
   },
   {
     id: 5,
-    username: "Nilesh Pawar",  
-    rating: 5,
-    message: "I have been visiting this fantastic hotel in BTM Layout, Bangalore, for the past year, and it has never failed to impress me. The food here is consistently delightful, offering a perfect blend of taste and quality. The staff is well-trained, courteous, and always goes the extra mile to ensure a pleasant dining experience.",
-    link: "https://goo.gl/maps/example5",
-    date: "1 month ago"
+    username: "Asifali Shaz",
+    rating: 4,
+    message:
+      "The mandhi and arabian dishes are quite good. And maybe this is one of the oldest mandhi brand in madiwala keeping its taste as it is.",
+    link: "https://g.co/kgs/t8HwfPy",
+    date: "1 week ago",
+    imageUrl:
+      "https://lh3.googleusercontent.com/a-/ALV-UjXSz87rILikNmG0cFVkgCv2C7E8BrHxesDOksxdh-Bgtyvy3zNX=s64-c-rp-mo-ba4-br100",
   },
-  {  
+  {
     id: 6,
-    username: "Ann Das",
-    rating: 5, 
-    message: "I had the pleasure of lunch at Castle Restaurant today, and I must say, it was an incredible experience! The ambiance was stunning, with elegant decor and a warm, inviting atmosphere. The staff were attentive, friendly, and provided excellent service throughout my visit.",
-    link: "https://goo.gl/maps/example6",
-    date: "2 weeks ago"
-  }
+    username: "Rahul Raveendran",
+    rating: 5,
+    message:
+      "The best mandi restaurant in Madiwala is undoubtedly Castle Restaurant. They offer an extensive variety of chicken and mutton mandi, each prepared with authentic flavors and high-quality ingredients. The menu caters to a wide range of preferences.",
+    link: "https://g.co/kgs/KN6hz8g",
+    date: "5 days ago",
+    imageUrl:
+      "https://lh3.googleusercontent.com/a-/ALV-UjXIrEGOzGN-oMidmbxl-wHi_hhze618QkpewtwiTfwDDi5HYGYxHQ=s64-c-rp-mo-ba5-br100",
+  },
 ];
 
 const ReviewCard = ({ review }) => {
   const stars = Array(5).fill(0);
-  
+
   return (
-    <motion.a 
+    <motion.a
       href={review.link}
       target="_blank"
       className="bg-white rounded-lg shadow-lg p-6 mb-6 min-w-[300px] md:min-w-[350px] block"
-      whileHover={{ 
+      whileHover={{
         y: -10,
-        transition: { duration: 0.2 }
+        transition: { duration: 0.2 },
       }}
     >
       <div className="flex items-center justify-between mb-4">
-        <motion.div 
-          className="flex items-center"
-          whileHover={{ scale: 1.05 }}
-        >
-          <div className="w-10 h-10 bg-[#7D0148] rounded-full flex items-center justify-center text-white font-semibold">
-            {review.username.charAt(0)}
+        <motion.div className="flex items-center" whileHover={{ scale: 1.05 }}>
+          <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200">
+            <img
+              src={review.imageUrl}
+              alt={review.username}
+              className="w-full h-full object-cover"
+            />
           </div>
           <div className="ml-3">
             <h3 className="font-semibold text-gray-800">{review.username}</h3>
-            <motion.div 
+            <motion.div
               className="flex items-center"
               initial="hidden"
               animate="visible"
@@ -85,9 +104,9 @@ const ReviewCard = ({ review }) => {
                 visible: {
                   opacity: 1,
                   transition: {
-                    staggerChildren: 0.1
-                  }
-                }
+                    staggerChildren: 0.1,
+                  },
+                },
               }}
             >
               {stars.map((_, index) => (
@@ -95,15 +114,15 @@ const ReviewCard = ({ review }) => {
                   key={index}
                   variants={{
                     hidden: { opacity: 0, scale: 0 },
-                    visible: { opacity: 1, scale: 1 }
+                    visible: { opacity: 1, scale: 1 },
                   }}
                 >
                   <Star
                     size={16}
                     className={`${
                       index < review.rating
-                        ? 'text-yellow-400 fill-yellow-400'
-                        : 'text-gray-300'
+                        ? "text-yellow-400 fill-yellow-400"
+                        : "text-gray-300"
                     }`}
                   />
                 </motion.div>
@@ -112,7 +131,7 @@ const ReviewCard = ({ review }) => {
           </div>
         </motion.div>
       </div>
-      <motion.p 
+      <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
@@ -134,19 +153,22 @@ const ReviewSection = () => {
 
   React.useEffect(() => {
     if (containerRef.current) {
-      setMaxScroll(containerRef.current.scrollWidth - containerRef.current.clientWidth);
+      setMaxScroll(
+        containerRef.current.scrollWidth - containerRef.current.clientWidth
+      );
     }
   }, []);
 
   const scroll = (direction) => {
     if (containerRef.current) {
-      const newScrollX = direction === 'left' 
-        ? Math.max(scrollX - 400, 0)
-        : Math.min(scrollX + 400, maxScroll);
-      
+      const newScrollX =
+        direction === "left"
+          ? Math.max(scrollX - 400, 0)
+          : Math.min(scrollX + 400, maxScroll);
+
       containerRef.current.scrollTo({
         left: newScrollX,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
       setScrollX(newScrollX);
     }
@@ -154,24 +176,28 @@ const ReviewSection = () => {
 
   return (
     <div className="py-16 px-4 bg-gray-50 overflow-hidden">
-      <motion.div 
+      <motion.div
         ref={headingRef}
         initial={{ opacity: 0, y: 50 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="text-center mb-12 relative"
       >
-        <h2 className="text-4xl font-bold text-[#7D0148] mb-4">What Our Guests Say</h2>
-        <p className="text-gray-600 text-lg">Read reviews from our valued customers</p>
+        <h2 className="text-4xl font-bold text-[#7D0148] mb-4">
+          What Our Guests Say
+        </h2>
+        <p className="text-gray-600 text-lg">
+          Read reviews from our valued customers
+        </p>
       </motion.div>
 
       <div className="relative max-w-6xl mx-auto">
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          onClick={() => scroll('left')}
+          onClick={() => scroll("left")}
           className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-lg ${
-            scrollX === 0 ? 'opacity-50 cursor-not-allowed' : 'opacity-100'
+            scrollX === 0 ? "opacity-50 cursor-not-allowed" : "opacity-100"
           }`}
           disabled={scrollX === 0}
         >
@@ -181,9 +207,11 @@ const ReviewSection = () => {
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          onClick={() => scroll('right')}
+          onClick={() => scroll("right")}
           className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-lg ${
-            scrollX >= maxScroll ? 'opacity-50 cursor-not-allowed' : 'opacity-100'
+            scrollX >= maxScroll
+              ? "opacity-50 cursor-not-allowed"
+              : "opacity-100"
           }`}
           disabled={scrollX >= maxScroll}
         >
