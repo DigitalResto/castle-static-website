@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Star, Send, Coffee, ChefHat, Clock, User, MessageSquare, Sparkles } from 'lucide-react';
 import Header from '@/components/Header/page';
 
@@ -18,10 +18,80 @@ const staggerContainer = {
     }
   }
 };
+  const successAnimation = {
+    hidden: { scale: 0, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    },
+    exit: {
+      scale: 0,
+      opacity: 0,
+      transition: {
+        duration: 0.3,
+        ease: "easeIn"
+      }
+    }
+  };
+  
+  const SuccessOverlay = ({ onAnimationComplete }) => {
+    return (
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-br from-[#76004C] via-[#8A0059] to-[#4A002F]"
+      >
+        <motion.div
+          variants={successAnimation}
+          onAnimationComplete={() => {
+            setTimeout(onAnimationComplete, 1000); // Delay before closing
+          }}
+          className="text-center"
+        >
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ 
+              type: "spring",
+              stiffness: 200,
+              damping: 10,
+              delay: 0.2
+            }}
+            className="mb-6"
+          >
+            <CheckCircle className="w-24 h-24 text-white mx-auto" />
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-3xl font-bold text-white mb-4"
+          >
+            Thank You!
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="text-white/80 text-lg"
+          >
+            Your feedback has been submitted successfully
+          </motion.p>
+        </motion.div>
+      </motion.div>
+    );
+  };
+
 
 const LuxuryFeedback = () => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -45,14 +115,22 @@ const LuxuryFeedback = () => {
     // Handle form submission
     console.log({ ...formData, categoryRatings, overallRating: rating });
   };
+  const handleAnimationComplete = () => {
+    setShowSuccess(false);
+    resetForm();
+  };
 
   return (
     <>
+      <AnimatePresence>
+        {showSuccess && <SuccessOverlay onAnimationComplete={handleAnimationComplete} />}
+      </AnimatePresence>
+
 
     <motion.div 
       initial="hidden"
       animate="visible"
-      className="min-h-screen bg-gradient-to-br from-[#76004C] via-[#8A0059] to-[#4A002F]"
+      className="min-h-screen bg-gradient-to-br from-[#76004C] via-[#8A0059] to-[#4A002F] p-4 md:p-8"
     >
             <Header/>
       <motion.div 
