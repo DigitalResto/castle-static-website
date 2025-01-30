@@ -13,6 +13,7 @@ import {
   X
 } from 'lucide-react';
 import { fetchDashboardData_FN, UPDATE_OTP_STATUS_FN } from '@/util/Axios/Methods/POST';
+import AdminProtected from '@/components/auth/AdminProtected';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -60,7 +61,8 @@ export default function Dashboard() {
   }, []);
 
   const handleLogout = () => {
-    router.push('/admin/login');
+    localStorage.removeItem('admin');
+    router.replace('/admin/login');
   };
 
   const toggleSidebar = () => {
@@ -243,6 +245,7 @@ export default function Dashboard() {
   );
 
   return (
+    <AdminProtected>
     <div className="min-h-screen bg-gray-50">
       <Header/>
       {/* Main Content */}
@@ -358,5 +361,6 @@ export default function Dashboard() {
         </div>
       </main>
     </div>
+    </AdminProtected>
   );
 }

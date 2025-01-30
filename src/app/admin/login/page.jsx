@@ -2,6 +2,7 @@
 import { Admin_Login_FN } from "@/util/Axios/Methods/POST";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { checkAdminAuth } from "@/util/auth";
 
 export default function AdminLogin() {
     const [isLoading, setIsLoading] = useState(false);
@@ -9,6 +10,11 @@ export default function AdminLogin() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const router = useRouter();
+
+    if(checkAdminAuth() == true){
+        router.replace('/admin/dashboard')
+    }
+    console.log("Auth==>",checkAdminAuth())
 
     // Validation functions
     const validateUsername = (usernameToValidate) => {
@@ -54,7 +60,8 @@ export default function AdminLogin() {
             }
             console.log(response)
             // Assuming successful login should redirect to dashboard
-            router.push('/admin/dashboard');
+            localStorage.setItem('admin',true);
+            router.replace('/admin/dashboard');
         } catch (error) {
             console.log("Erorr=>",error)
             setError(error.response.data.message || 'Invalid username or password');

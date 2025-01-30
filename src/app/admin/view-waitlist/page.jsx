@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 import { Search, LogOut, ArrowLeft, Check, X, ClipboardCopy } from 'lucide-react';
 import { getSocket } from '@/util/socket';
+import AdminProtected from '@/components/auth/AdminProtected';
 
 export default function WaitList() {
     const [waitlistData, setWaitlistData] = useState([]);
@@ -85,6 +86,7 @@ export default function WaitList() {
     }
 
     return (
+       <AdminProtected>
         <div className="min-h-screen bg-gray-50">
             {/* Header */}
             <header className="bg-white shadow">
@@ -191,5 +193,6 @@ export default function WaitList() {
                 </div>
             </main>
         </div>
+        </AdminProtected>
     );
 }
