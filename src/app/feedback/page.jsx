@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Star, Send, Coffee, ChefHat, Clock, User, MessageSquare, Sparkles } from 'lucide-react';
+import Header from '@/components/Header/page';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -46,11 +47,14 @@ const LuxuryFeedback = () => {
   };
 
   return (
+    <>
+
     <motion.div 
       initial="hidden"
       animate="visible"
-      className="min-h-screen bg-gradient-to-br from-[#76004C] via-[#8A0059] to-[#4A002F] p-4 md:p-8"
+      className="min-h-screen bg-gradient-to-br from-[#76004C] via-[#8A0059] to-[#4A002F]"
     >
+            <Header/>
       <motion.div 
         variants={fadeIn}
         className="max-w-4xl mx-auto bg-white/10 backdrop-blur-lg rounded-2xl p-6 md:p-8 shadow-2xl border border-white/20"
@@ -207,6 +211,7 @@ const LuxuryFeedback = () => {
         </motion.form>
       </motion.div>
     </motion.div>
+    </>
   );
 };
 
