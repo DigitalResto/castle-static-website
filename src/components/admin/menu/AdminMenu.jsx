@@ -1,7 +1,19 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Trash, X } from "lucide-react";
+import { 
+  Plus, 
+  Trash2, 
+  X, 
+  Edit3, 
+  Package, 
+  Utensils, 
+  RefreshCw,
+  AlertCircle,
+  CheckCircle2,
+  FolderPlus,
+  ImagePlus
+} from "lucide-react";
 import Modal from "./Modal";
 import MenuItemCard from "./MenuItemCard";
 import MenuItemForm from "./MenuItemForm";
@@ -234,23 +246,24 @@ export default function AdminMenu() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <RefreshCw className="h-12 w-12 text-blue-500 animate-spin" />
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-red-500 text-center">
-          <h3 className="text-lg font-semibold mb-2">Error Loading Menu</h3>
-          <p>{error}</p>
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full text-center">
+          <AlertCircle className="h-16 w-16 text-red-500 mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">Error Loading Menu</h3>
+          <p className="text-gray-600 mb-6">{error}</p>
           <button
             onClick={fetchMenuData}
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all transform hover:scale-105 flex items-center justify-center gap-2 mx-auto"
           >
-            Retry
+            <RefreshCw className="h-4 w-4" /> Retry
           </button>
         </div>
       </div>
@@ -258,46 +271,121 @@ export default function AdminMenu() {
   }
 
   return (
-    <div className="container mx-auto p-4 md:p-6">
-      {alert.show && (
-        <div
-          className={`mb-4 p-4 rounded-md flex items-center justify-between ${
-            alert.type === "error"
-              ? "bg-red-50 text-red-700 border border-red-200"
-              : "bg-green-50 text-green-700 border border-green-200"
-          }`}
-        >
-          <p>{alert.message}</p>
-          <button
-            onClick={() => setAlert({ show: false, message: "", type: "" })}
-            className="p-1 hover:bg-white rounded-full transition-colors"
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto p-4 md:p-6 max-w-7xl">
+        {alert.show && (
+          <div
+            className={`mb-6 p-4 rounded-lg shadow-sm flex items-center justify-between ${
+              alert.type === "error"
+                ? "bg-red-50 text-red-700 border-l-4 border-red-500"
+                : "bg-green-50 text-green-700 border-l-4 border-green-500"
+            }`}
           >
-            <X size={16} />
-          </button>
-        </div>
-      )}
+            <div className="flex items-center gap-3">
+              {alert.type === "error" ? (
+                <AlertCircle className="h-5 w-5" />
+              ) : (
+                <CheckCircle2 className="h-5 w-5" />
+              )}
+              <p className="font-medium">{alert.message}</p>
+            </div>
+            <button
+              onClick={() => setAlert({ show: false, message: "", type: "" })}
+              className="p-1 hover:bg-white/50 rounded-full transition-colors"
+            >
+              <X size={16} />
+            </button>
+          </div>
+        )}
 
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-        <h1 className="text-2xl font-bold">Menu Management</h1>
-        <div className="flex flex-wrap gap-2">
-          <button
-            onClick={() => setIsAddingCategory(true)}
-            disabled={isSubmitting}
-            className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <Plus className="h-4 w-4" /> Add Category
-          </button>
-          <button
-            onClick={() => setIsAddingItem(true)}
-            disabled={isSubmitting}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <Plus className="h-4 w-4" /> Add Item
-          </button>
+        <div className="bg-white rounded-xl shadow-md p-6 mb-8">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+            <div className="flex items-center gap-3">
+              <Utensils className="h-8 w-8 text-blue-500" />
+              <h1 className="text-2xl font-bold text-gray-800">Menu Management</h1>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={() => setIsAddingCategory(true)}
+                disabled={isSubmitting}
+                className="flex items-center gap-2 px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-sm"
+              >
+                <FolderPlus className="h-4 w-4" /> Add Category
+              </button>
+              <button
+                onClick={() => setIsAddingItem(true)}
+                disabled={isSubmitting}
+                className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-sm"
+              >
+                <ImagePlus className="h-4 w-4" /> Add Item
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Categories and Items Display */}
+        <div className="space-y-8">
+          {menuData.categories.map((category) => (
+            <div key={category._id} className="bg-white rounded-xl shadow-md overflow-hidden">
+              <div className="p-6 border-b border-gray-100">
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-3">
+                    <Package className="h-6 w-6 text-gray-500" />
+                    <h2 className="text-xl font-bold text-gray-800">{category.name}</h2>
+                  </div>
+                  <button
+                    onClick={() => handleDeleteCategory(category._id)}
+                    disabled={isSubmitting}
+                    className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed group"
+                  >
+                    <Trash2 className="h-5 w-5 transform group-hover:scale-110 transition-transform" />
+                  </button>
+                </div>
+              </div>
+              <div className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {menuData.items
+                    .filter((item) => item.categoryId === category._id)
+                    .map((item) => (
+                      <div key={item._id} className="bg-gray-50 rounded-lg p-4 group hover:shadow-md transition-all">
+                        <div className="relative aspect-video mb-4 overflow-hidden rounded-lg">
+                          <img
+                            src={item.imageUrl}
+                            alt={item.title}
+                            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                        <h3 className="font-semibold text-lg mb-2 text-gray-800">{item.title}</h3>
+                        <p className="text-gray-600 text-sm mb-4">{item.description}</p>
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-blue-500">${item.price}</span>
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => startEdit(item)}
+                              disabled={isSubmitting}
+                              className="p-2 text-blue-500 hover:bg-blue-50 rounded-lg transition-colors"
+                            >
+                              <Edit3 className="h-4 w-4" />
+                            </button>
+                            <button
+                              onClick={() => handleDeleteItem(item._id)}
+                              disabled={isSubmitting}
+                              className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Category Modal */}
+      {/* Modals remain the same */}
       <Modal
         isOpen={isAddingCategory}
         onClose={() => !isSubmitting && setIsAddingCategory(false)}
@@ -312,7 +400,7 @@ export default function AdminMenu() {
               type="text"
               value={newCategory}
               onChange={(e) => setNewCategory(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               required
               disabled={isSubmitting}
             />
@@ -322,14 +410,14 @@ export default function AdminMenu() {
               type="button"
               onClick={() => setIsAddingCategory(false)}
               disabled={isSubmitting}
-              className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? "Adding..." : "Add Category"}
             </button>
@@ -337,7 +425,6 @@ export default function AdminMenu() {
         </form>
       </Modal>
 
-      {/* Menu Item Form Modal */}
       <MenuItemForm
         isOpen={isAddingItem}
         onClose={() => !isSubmitting && resetFormAndModals()}
@@ -348,37 +435,6 @@ export default function AdminMenu() {
         setFormData={setFormData}
         isSubmitting={isSubmitting}
       />
-
-      {/* Categories and Items Display */}
-      <div className="space-y-8">
-        {menuData.categories.map((category) => (
-          <div key={category._id} className="border rounded-lg p-4">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold">{category.name}</h2>
-              <button
-                onClick={() => handleDeleteCategory(category._id)}
-                disabled={isSubmitting}
-                className="p-2 text-red-500 hover:bg-red-50 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <Trash size={20} />
-              </button>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {menuData.items
-                .filter((item) => item.categoryId === category._id)
-                .map((item) => (
-                  <MenuItemCard
-                    key={item._id}
-                    item={item}
-                    onEdit={startEdit}
-                    onDelete={handleDeleteItem}
-                    disabled={isSubmitting}
-                  />
-                ))}
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
