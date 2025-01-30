@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, Send, Coffee, ChefHat, Clock, User, MessageSquare, Sparkles } from 'lucide-react';
 import Header from '@/components/Header/page';
+import { useRouter } from 'next/navigation';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -49,6 +50,7 @@ const LuxuryFeedback = () => {
     visitDate: '',
     feedback: ''
   });
+  const router = useRouter();
 
   const categories = [
     { name: 'Food Quality', icon: <ChefHat className="w-6 h-6" /> },
@@ -74,6 +76,9 @@ const LuxuryFeedback = () => {
 
       if (response.ok) {
         setShowSuccess(true);
+        setTimeout(() => {
+          router.push('/admin/login');
+        }, 2000); // Redirect after 2 seconds
       } else {
         console.error('Failed to submit feedback');
       }
