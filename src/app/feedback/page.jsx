@@ -65,6 +65,7 @@ const LuxuryFeedback = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setShowSuccess(true);
     try {
       const response = await fetch('/api/feedback', {
         method: 'POST',
@@ -75,10 +76,7 @@ const LuxuryFeedback = () => {
       });
 
       if (response.ok) {
-        setShowSuccess(true);
-        setTimeout(() => {
-          router.push('/admin/login');
-        }, 2000); // Redirect after 2 seconds
+          router.push('/menu');
       } else {
         console.error('Failed to submit feedback');
       }
