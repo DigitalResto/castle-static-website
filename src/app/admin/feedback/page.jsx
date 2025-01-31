@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   Star,
@@ -17,33 +17,28 @@ import {
   Download
 } from 'lucide-react';
 
-// Sample data structure
-const sampleFeedback = [
-  {
-    id: 1,
-    name: "Sarah Johnson",
-    email: "sarah.j@example.com",
-    date: "2024-01-28",
-    ratings: {
-      'Food Quality': 5,
-      'Service': 4,
-      'Ambiance': 5,
-      'Wait Time': 4
-    },
-    overallRating: 5,
-    feedback: "Exceptional dining experience! The atmosphere was perfect for our anniversary celebration."
-  },
-  // Add more sample data as needed
-];
-
 const FeedbackDashboard = () => {
-  const [feedbacks, setFeedbacks] = useState(sampleFeedback);
+  const [feedbacks, setFeedbacks] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterRating, setFilterRating] = useState('all');
   const [sortField, setSortField] = useState('date');
   const [sortDirection, setSortDirection] = useState('desc');
   const [selectedFeedback, setSelectedFeedback] = useState(null);
   const [filterDropdownOpen, setFilterDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchFeedbacks = async () => {
+      try {
+        const response = await fetch('/api/feedback');
+        const data = await response.json();
+        setFeedbacks(data.feedbacks);
+      } catch (error) {
+        console.error('Error fetching feedback:', error);
+      }
+    };
+
+    fetchFeedbacks();
+  }, []);
 
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
@@ -127,134 +122,100 @@ const FeedbackDashboard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {feedbacks.map((feedback) => (
-                    <motion.tr
-                      key={feedback.id}
-                      className="border-b border-white/10 cursor-pointer hover:bg-white/5"
-                      onClick={() => setSelectedFeedback(feedback)}
-                      whileHover={{ scale: 1.01 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                      <td className="p-4 text-white/80">
-                        <div className="flex items-center gap-2">
-                          <Calendar className="w-4 h-4" />
-                          {new Date(feedback.date).toLocaleDateString()}
-                        </div>
-                      </td>
-                      <td className="p-4">
-                        <div className="flex flex-col">
-                          <span className="text-white">{feedback.name}</span>
-                          <span className="text-white/60 text-sm">{feedback.email}</span>
-                        </div>
-                      </td>
-                      <td className="p-4">
-                        <div className="flex items-center gap-1">
-                          {[...Array(5)].map((_, index) => (
-                            <Star
-                              key={index}
-                              className={`w-4 h-4 ${
-                                index < feedback.overallRating
-                                  ? 'text-yellow-400 fill-yellow-400'
-                                  : 'text-white/30'
-                              }`}
-                            />
+                  {feedbacks
+                    .filter((feedback) =>
+                      feedback.name.toLowerCase().includes(searchTerm.toLowerCase())
+                    )
+                    .sort((a, b) => {
+                      if (sortField === 'date') {
+                        return sortDirection === 'asc'
+                          ? new Date(a.date) - new Date(b.date)
+                          : new Date(b.date) - new Date(a.date);
+                      } else if (sortField === 'rating') {
+                        return sortDirection === 'asc'
+                          ? a.overallRating - b.overallRating
+                          : b.overallRating - a.overallRating;
+                      }
+                      return 0;
+                    })
+                    .map((feedback) => (
+                      <tr
+                        key={feedback._id}
+                        className="border-b border-white/20 hover:bg-white/10 cursor-pointer"
+                        onClick={() => setSelectedFeedback(feedback)}
+                      >
+                        <td className="p-4 text-white">{new Date(feedback.date).toLocaleDateString()}</td>
+                        <td className="p-4 text-white">{feedback.name}</td>
+                        <td className={`p-4 ${getRatingColor(feedback.overallRating)}`}>
+                          {feedback.overallRating} <Star className="inline w-4 h-4" />
+                        </td>
+                        <td className="p-4 text-white">
+                          {Object.entries(feedback.categoryRatings).map(([category, rating]) => (
+                            <div key={category} className="flex items-center gap-2">
+                              {category === 'Food Quality' && <ChefHat className="w-4 h-4" />}
+                              {category === 'Service' && <Coffee className="w-4 h-4" />}
+                              {category === 'Ambiance' && <Sparkles className="w-4 h-4" />}
+                              {category === 'Wait Time' && <Clock className="w-4 h-4" />}
+                              <span>{category}: {rating}</span>
+                            </div>
                           ))}
-                        </div>
-                      </td>
-                      <td className="p-4">
-                        <div className="flex flex-wrap gap-2">
-                          {Object.entries(feedback.ratings).map(([category, rating]) => (
-                            <span
-                              key={category}
-                              className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-white/10 text-white/80 text-sm"
-                            >
-                              {rating}/5
-                              {category === 'Food Quality' && <ChefHat className="w-3 h-3" />}
-                              {category === 'Service' && <Coffee className="w-3 h-3" />}
-                              {category === 'Ambiance' && <Sparkles className="w-3 h-3" />}
-                              {category === 'Wait Time' && <Clock className="w-3 h-3" />}
-                            </span>
-                          ))}
-                        </div>
-                      </td>
-                    </motion.tr>
-                  ))}
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
           </motion.div>
 
-          {/* Feedback Detail Panel */}
-          <motion.div
-            variants={fadeIn}
-            className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20 h-fit"
-          >
-            {selectedFeedback ? (
-              <div className="space-y-6">
-                <div className="flex justify-between items-start">
-                  <h2 className="text-xl font-semibold text-white">Feedback Details</h2>
-                  <button
-                    onClick={() => setSelectedFeedback(null)}
-                    className="text-white/60 hover:text-white"
-                  >
-                    <XCircle className="w-6 h-6" />
-                  </button>
+          {/* Feedback Details */}
+          {selectedFeedback && (
+            <motion.div
+              variants={fadeIn}
+              className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20"
+            >
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-bold text-white">Feedback Details</h2>
+                <button
+                  onClick={() => setSelectedFeedback(null)}
+                  className="text-white hover:text-red-500 transition-colors"
+                >
+                  <XCircle className="w-6 h-6" />
+                </button>
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <Mail className="w-5 h-5 text-white/50" />
+                  <span className="text-white">{selectedFeedback.email}</span>
                 </div>
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="text-white/60 mb-1">Customer Information</h3>
-                    <p className="text-white">{selectedFeedback.name}</p>
-                    <p className="text-white/80">{selectedFeedback.email}</p>
-                  </div>
-                  <div>
-                    <h3 className="text-white/60 mb-1">Date</h3>
-                    <p className="text-white">
-                      {new Date(selectedFeedback.date).toLocaleDateString()}
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="text-white/60 mb-1">Category Ratings</h3>
-                    <div className="grid grid-cols-2 gap-4">
-                      {Object.entries(selectedFeedback.ratings).map(([category, rating]) => (
-                        <div key={category} className="bg-white/5 rounded-lg p-3">
-                          <div className="flex items-center gap-2 mb-2">
-                            {category === 'Food Quality' && <ChefHat className="w-4 h-4" />}
-                            {category === 'Service' && <Coffee className="w-4 h-4" />}
-                            {category === 'Ambiance' && <Sparkles className="w-4 h-4" />}
-                            {category === 'Wait Time' && <Clock className="w-4 h-4" />}
-                            <span className="text-white/80">{category}</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            {[...Array(5)].map((_, index) => (
-                              <Star
-                                key={index}
-                                className={`w-4 h-4 ${
-                                  index < rating
-                                    ? 'text-yellow-400 fill-yellow-400'
-                                    : 'text-white/30'
-                                }`}
-                              />
-                            ))}
-                          </div>
-                        </div>
-                      ))}
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-5 h-5 text-white/50" />
+                  <span className="text-white">{new Date(selectedFeedback.visitDate).toLocaleDateString()}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Star className="w-5 h-5 text-white/50" />
+                  <span className={`text-white ${getRatingColor(selectedFeedback.overallRating)}`}>
+                    {selectedFeedback.overallRating}
+                  </span>
+                </div>
+                <div>
+                  <h3 className="text-white font-medium mb-2">Category Ratings:</h3>
+                  {Object.entries(selectedFeedback.categoryRatings).map(([category, rating]) => (
+                    <div key={category} className="flex items-center gap-2">
+                      {category === 'Food Quality' && <ChefHat className="w-4 h-4 text-white/50" />}
+                      {category === 'Service' && <Coffee className="w-4 h-4 text-white/50" />}
+                      {category === 'Ambiance' && <Sparkles className="w-4 h-4 text-white/50" />}
+                      {category === 'Wait Time' && <Clock className="w-4 h-4 text-white/50" />}
+                      <span className="text-white">{category}: {rating}</span>
                     </div>
-                  </div>
-                  <div>
-                    <h3 className="text-white/60 mb-1">Feedback</h3>
-                    <p className="text-white bg-white/5 rounded-lg p-4">
-                      {selectedFeedback.feedback}
-                    </p>
-                  </div>
+                  ))}
+                </div>
+                <div>
+                  <h3 className="text-white font-medium mb-2">Feedback:</h3>
+                  <p className="text-white">{selectedFeedback.feedback}</p>
                 </div>
               </div>
-            ) : (
-              <div className="text-center text-white/60 py-8">
-                <Mail className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                <p>Select a feedback to view details</p>
-              </div>
-            )}
-          </motion.div>
+            </motion.div>
+          )}
         </div>
       </motion.div>
     </div>
