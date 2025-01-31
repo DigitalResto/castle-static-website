@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useState } from "react";
 
 const PricingMenu = () => {
@@ -217,7 +218,7 @@ const PricingMenu = () => {
     <div className="bg-cream text-center py-10 px-5 flex items-center justify-center min-h-screen">
       <div>
         <h1 className="text-[#78004D] font-semibold text-sm">PRICING MENU</h1>
-        <h2 className="text-4xl font-bold text-gray-800 my-4">DELICIOUS DEALS FOR YOU</h2>
+        <h2 className="text-4xl font-bold text-gray-800 my-4">DELICIOUS DEALS  FOR YOU</h2>
         <div className="flex justify-center gap-4 mt-6">
           {tabs.map((tab) => (
             <button
@@ -232,6 +233,13 @@ const PricingMenu = () => {
               {tab}
             </button>
           ))}
+          <Link href={'/menu'}>
+          <button
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all bg-white text-gray-700 shadow`}
+            >
+              View All
+            </button>
+            </Link>
         </div>
 
 <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">

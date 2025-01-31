@@ -13,7 +13,8 @@ import {
   X,
   SquareMenu,
   ChevronDown,
-  Pen
+  Pen,
+  ChartColumn
 } from 'lucide-react';
 import { fetchDashboardData_FN, UPDATE_OTP_STATUS_FN } from '@/util/Axios/Methods/POST';
 import AdminProtected from '@/components/auth/AdminProtected';
@@ -218,6 +219,16 @@ export default function Dashboard() {
                 <Pen  className="w-4 h-4 mr-2" />
                 View Feedback
               </button>
+              <button
+                onClick={() => {
+                  router.push('/admin/analytics');
+                  setIsDropdownOpen(false);
+                }}
+                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 inline-flex items-center"
+              >
+                <ChartColumn className="w-4 h-4 mr-2" />
+                View Analytics
+              </button>
             </div>
           </div>
         )}
@@ -295,6 +306,16 @@ export default function Dashboard() {
                   <Pen className="w-4 h-4 mr-2" />
                   View Feedback
                 </button>
+                <button
+                onClick={() => {
+                  router.push('/admin/analytics');
+                  setIsDropdownOpen(false);
+                }}
+                className="w-full inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700"
+              >
+                <ChartColumn className="w-4 h-4 mr-2" />
+                View Analytics
+              </button>
                 <button
                   onClick={handleLogout}
                   className="w-full inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700"
