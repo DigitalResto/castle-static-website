@@ -8,6 +8,7 @@ import Header from "../Header/page";
 import ProfessionalLeaders from "../Members/page";
 import ChooseYourItems from "../Menu/page";
 import PricingMenu from "../Pricing/page";
+import Link from 'next/link';
 
 const AnimatedTitle = () => {
   const letters = "Castle Resto".split("");
@@ -67,13 +68,15 @@ const AnimatedTitle = () => {
           </span>
         </div>
 
-        <motion.button
+<Link href={'/reg-waitlist'}>
+<motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="bg-[#7D0148] text-white px-8 py-3 rounded-full text-lg font-semibold mt-4"
         >
           Reserve Your Table
         </motion.button>
+</Link>
       </motion.div>
     </motion.div>
   );

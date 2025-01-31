@@ -92,21 +92,21 @@ export default function Header() {
                     {/* Mobile Menu Items */}
                     <nav className="flex flex-col space-y-6">
                         <Link 
-                            href="/about/mission"
+                            href="/about"
                             className="text-lg font-bold hover:text-gray-300"
                             onClick={toggleMobileMenu}
                         >
                             About Us
                         </Link>
                         <Link 
-                            href="/menu/signature-dishes"
+                            href="/menu"
                             className="text-lg font-bold hover:text-gray-300"
                             onClick={toggleMobileMenu}
                         >
                             Menu
                         </Link>
                         <Link 
-                            href="/services/private-dining"
+                            href="/services"
                             className="text-lg font-bold hover:text-gray-300"
                             onClick={toggleMobileMenu}
                         >

@@ -201,7 +201,7 @@ export default function WaitListRegister() {
                 )}
                 <button
                     onClick={isOtpStage ? checkOTP : handleSubmit}
-                    className="border mt-3 w-full md:w-72 py-2 bg-red-800 text-white rounded-lg"
+                    className="border mt-3 w-full md:w-72 py-2 bg-[#7D0148] text-white rounded-lg"
                     disabled={isLoading}
                 >
                     {isLoading ? (isOtpStage ? "Verifying..." : "Joining...") : (isOtpStage ? "Verify OTP" : "Join")}

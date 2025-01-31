@@ -23,7 +23,7 @@ const Success = () => {
                 onClick={() => {
                     router.push('/');
                 }}
-                className="m-10 text-white bg-[#A50202] px-28 rounded-lg py-2"
+                className="m-10 text-white bg-[#7D0148] px-28 rounded-lg py-2"
             >
                 Menu
             </button>
@@ -43,7 +43,7 @@ const Success = () => {
                         <h3 className="text-xl font-bold mb-4">Wanna check how many mandi you can eat?</h3>
                         <button
                             onClick={() => router.push('/game')}
-                            className="bg-[#A50202] text-white px-6 py-2 rounded-lg"
+                            className="bg-[#7D0148] text-white px-6 py-2 rounded-lg"
                         >
                             Let's check
                         </button>
