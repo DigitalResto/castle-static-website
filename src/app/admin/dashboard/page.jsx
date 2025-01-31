@@ -12,7 +12,8 @@ import {
   Menu,
   X,
   SquareMenu,
-  ChevronDown
+  ChevronDown,
+  Pen
 } from 'lucide-react';
 import { fetchDashboardData_FN, UPDATE_OTP_STATUS_FN } from '@/util/Axios/Methods/POST';
 import AdminProtected from '@/components/auth/AdminProtected';
@@ -207,6 +208,16 @@ export default function Dashboard() {
                 <ClipboardList className="w-4 h-4 mr-2" />
                 Waitlist
               </button>
+              <button
+                onClick={() => {
+                  router.push('/admin/feedback');
+                  setIsDropdownOpen(false);
+                }}
+                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 inline-flex items-center"
+              >
+                <Pen  className="w-4 h-4 mr-2" />
+                View Feedback
+              </button>
             </div>
           </div>
         )}
@@ -274,7 +285,16 @@ export default function Dashboard() {
                   <SquareMenu className="w-4 h-4 mr-2" />
                   Manage Menu
                 </button>
-
+                <button
+                  onClick={() => {
+                    router.push('/admin/feedback');
+                    toggleSidebar();
+                  }}
+                  className="w-full inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700"
+                >
+                  <Pen className="w-4 h-4 mr-2" />
+                  View Feedback
+                </button>
                 <button
                   onClick={handleLogout}
                   className="w-full inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700"
