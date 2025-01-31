@@ -10,7 +10,9 @@ import {
   Search,
   MessageSquare,
   Menu,
-  X
+  X,
+  SquareMenu,
+  ChevronDown
 } from 'lucide-react';
 import { fetchDashboardData_FN, UPDATE_OTP_STATUS_FN } from '@/util/Axios/Methods/POST';
 import AdminProtected from '@/components/auth/AdminProtected';
@@ -24,7 +26,8 @@ export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isOtpEnabled, setIsOtpEnabled] = useState(false);
-  
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   useEffect(() => {
     const loadDashboardData = async () => {
       try {
@@ -157,34 +160,66 @@ export default function Dashboard() {
         {/* Desktop Header */}
         <div className="hidden md:flex justify-between items-center">
           <div className="flex items-center space-x-4">
-            <img src="Resto-mandi-logo.png" alt="Logo" className="h-10 w-10 rounded-full" />
+            <img src="../Resto-mandi-logo.png" alt="Logo" className="h-10 w-10 rounded-full" />
             <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
           </div>
           <div className="flex items-center space-x-4">
-            <button
-              onClick={handleOtpToggle}
-              className={`inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
-                isOtpEnabled ? 'bg-green-600 hover:bg-green-700' : 'bg-gray-600 hover:bg-gray-700'
-              }`}
-            >
-              <MessageSquare className="w-4 h-4 mr-2" />
-              OTP {isOtpEnabled ? 'Enabled' : 'Disabled'}
-            </button>
-            <button
-              onClick={() => router.push('/admin/view-waitlist')}
-              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700"
-            >
-              <ClipboardList className="w-4 h-4 mr-2" />
-              Waitlist
-            </button>
-            <button
-              onClick={handleLogout}
-              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700"
-            >
-              <LogOut className="w-4 h-4 mr-2" />
-              Logout
-            </button>
+      <button
+        onClick={handleOtpToggle}
+        className={`inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
+          isOtpEnabled ? 'bg-green-600 hover:bg-green-700' : 'bg-gray-600 hover:bg-gray-700'
+        }`}
+      >
+        <MessageSquare className="w-4 h-4 mr-2" />
+        OTP {isOtpEnabled ? 'Enabled' : 'Disabled'}
+      </button>
+
+      <div className="relative">
+        <button
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700"
+        >
+          Manage
+          <ChevronDown className="w-4 h-4 ml-2" />
+        </button>
+
+        {isDropdownOpen && (
+          <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+            <div className="py-1">
+              <button
+                onClick={() => {
+                  router.push('/admin/menu');
+                  toggleSidebar();
+                  setIsDropdownOpen(false);
+                }}
+                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 inline-flex items-center"
+              >
+                <SquareMenu className="w-4 h-4 mr-2" />
+                Manage Menu
+              </button>
+              <button
+                onClick={() => {
+                  router.push('/admin/view-waitlist');
+                  setIsDropdownOpen(false);
+                }}
+                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 inline-flex items-center"
+              >
+                <ClipboardList className="w-4 h-4 mr-2" />
+                Waitlist
+              </button>
+            </div>
           </div>
+        )}
+      </div>
+
+      <button
+        onClick={handleLogout}
+        className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700"
+      >
+        <LogOut className="w-4 h-4 mr-2" />
+        Logout
+      </button>
+    </div>
         </div>
 
         {/* Mobile Header */}
@@ -197,7 +232,7 @@ export default function Dashboard() {
                 <Menu className="h-6 w-6 text-gray-600" />
               )}
             </button>
-            <img src="Resto-mandi-logo.png" alt="Logo" className="h-8 w-8 rounded-full" />
+            <img src="../Resto-mandi-logo.png" alt="Logo" className="h-8 w-8 rounded-full" />
             <h1 className="text-xl font-bold text-gray-900">Dashboard</h1>
           </div>
         </div>
@@ -229,6 +264,17 @@ export default function Dashboard() {
                   <ClipboardList className="w-4 h-4 mr-2" />
                   Waitlist
                 </button>
+                <button
+                  onClick={() => {
+                    router.push('/admin/menu');
+                    toggleSidebar();
+                  }}
+                  className="w-full inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700"
+                >
+                  <SquareMenu className="w-4 h-4 mr-2" />
+                  Manage Menu
+                </button>
+
                 <button
                   onClick={handleLogout}
                   className="w-full inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700"
