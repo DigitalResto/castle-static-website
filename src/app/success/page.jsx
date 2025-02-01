@@ -47,6 +47,13 @@ const Success = () => {
                         >
                             Let's check
                         </button>
+
+                        <button
+                            onClick={() => router.push('/queue')}
+                            className="bg-[#7D0148] text-white px-6 py-2 rounded-lg"
+                        >
+                            View Queue
+                        </button>
                     </div>
                 </div>
             )}

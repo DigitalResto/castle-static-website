@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 const reviews = [
   {
@@ -70,6 +71,7 @@ const reviews = [
       "https://lh3.googleusercontent.com/a-/ALV-UjXIrEGOzGN-oMidmbxl-wHi_hhze618QkpewtwiTfwDDi5HYGYxHQ=s64-c-rp-mo-ba5-br100",
   },
 ];
+
 
 const ReviewCard = ({ review }) => {
   const stars = Array(5).fill(0);
@@ -228,7 +230,16 @@ const ReviewSection = () => {
           {reviews.map((review) => (
             <ReviewCard key={review.id} review={review} />
           ))}
+          
         </motion.div>
+        <div className="flex justify-center my-5">
+          <Link href={'/feedback'}>
+          <button className="group inline-flex items-center gap-2 bg-[#78004D] text-white px-6 py-3 rounded-full hover:bg-[#8F005C] transition-colors">
+            Give Your Feedback
+            <ArrowUpRight className="w-4 h-4 transform transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+          </button>
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -60,7 +60,7 @@ const AboutUs = () => {
             {/* Right side - Image Grid */}
             <div className="grid grid-cols-2 gap-4">
               <img
-                src="image01.jpg"
+                src="ss01.png"
                 alt="Restaurant Interior"
                 className="w-full h-64 object-cover rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
               />
