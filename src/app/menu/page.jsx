@@ -1,258 +1,325 @@
-"use client";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+'use client';
+import React from "react";
+import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Header from "@/components/Header/page";
+const menuData = {
+  categories: [
+    { _id: "soups", name: "Soups" },
+    { _id: "salads", name: "Salads" },
+    { _id: "shawarma", name: "Shawarma" },
+    { _id: "sizzlers", name: "Arabic Sizzlers" },
+    { _id: "starters", name: "Andhra Starters" },
+    { _id: "platters", name: "Castle Special Platter" },
+    { _id: "mandi", name: "Mandi & Arabic Rice" },
+    { _id: "indian_biriyani", name: "Indian Biriyani & Rice" },
+    { _id: "chinese_nonveg", name: "Chinese Non Veg" },
+    { _id: "chinese_seafood", name: "Sea Food Chinese" },
+    { _id: "veg_chinese", name: "Veg Chinese" },
+    { _id: "breads", name: "Breads" },
+    { _id: "indian_veg", name: "Indian Currys Veg" },
+    { _id: "indian_egg", name: "Indian Currys Egg" },
+    { _id: "noodles", name: "Noodles" },
+    { _id: "nonveg_gravy", name: "Non Veg Gravy" },
+    { _id: "seafood_gravy", name: "Sea Food Gravy" },
+    { _id: "fried_rice", name: "Fried Rice" },
+    { _id: "fresh_juices", name: "Fresh Juices" },
+    { _id: "milkshakes", name: "Milkshakes" },
+    { _id: "mojito", name: "Mojito" },
+    { _id: "falooda", name: "Falooda" },
+    { _id: "icecream", name: "Ice Cream" },
+    { _id: "fruit_cream", name: "Fruit with Cream" }
+  ],
+  items: [
+    // Soups
+    {
+      _id: "s1",
+      categoryId: "soups",
+      title: "Mutton Soup",
+      price: "160",
+      description: "Traditional mutton soup"
+    },
+    {
+      _id: "s2",
+      categoryId: "soups",
+      title: "Clear Soup",
+      price: "90/150",
+      description: "Veg/Non-veg clear soup"
+    },
+    {
+      _id: "s3",
+      categoryId: "soups",
+      title: "Hot & Sour",
+      price: "90/130"
+    },
+    {
+      _id: "s4",
+      categoryId: "soups",
+      title: "Manchow",
+      price: "90/130"
+    },
+    {
+      _id: "s5",
+      categoryId: "soups",
+      title: "Noodle Soup",
+      price: "90/130"
+    },
+    {
+      _id: "s6",
+      categoryId: "soups",
+      title: "Pepper Soup",
+      price: "90/130"
+    },
+    {
+      _id: "s7",
+      categoryId: "soups",
+      title: "Sweet Corn",
+      price: "90/130"
+    },
+    {
+      _id: "s8",
+      categoryId: "soups",
+      title: "Cream of Mushroom",
+      price: "100"
+    },
+    {
+      _id: "s9",
+      categoryId: "soups",
+      title: "Cream of Tomato",
+      price: "100"
+    },
+    {
+      _id: "s10",
+      categoryId: "soups",
+      title: "Dragon Soup",
+      price: "100/130"
+    },
+    {
+      _id: "s11",
+      categoryId: "soups",
+      title: "Lemon Coriander Soup",
+      price: "100/130"
+    },
+    {
+      _id: "s12",
+      categoryId: "soups",
+      title: "Lung Fung",
+      price: "120"
+    },
+    {
+      _id: "s13",
+      categoryId: "soups",
+      title: "Sea Food Soup",
+      price: "130"
+    },
 
-export default function Menu() {
-  const [menuData, setMenuData] = useState({ categories: [], items: [] });
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+    // Salads
+    {
+      _id: "sal1",
+      categoryId: "salads",
+      title: "Hummus",
+      price: "50/130/200",
+      description: "Classic Arabic dip"
+    },
+    {
+      _id: "sal2",
+      categoryId: "salads",
+      title: "Thoum (Garlic Mayo)",
+      price: "30/70/130"
+    },
+    {
+      _id: "sal3",
+      categoryId: "salads",
+      title: "Mixed Raitha",
+      price: "50"
+    },
+    {
+      _id: "sal4",
+      categoryId: "salads",
+      title: "Plain Curd",
+      price: "50"
+    },
+    {
+      _id: "sal5",
+      categoryId: "salads",
+      title: "Green Salad",
+      price: "80"
+    },
+    {
+      _id: "sal6",
+      categoryId: "salads",
+      title: "Darjeeling Salad",
+      price: "140"
+    },
+    {
+      _id: "sal7",
+      categoryId: "salads",
+      title: "Russian Salad",
+      price: "140"
+    },
+    {
+      _id: "sal8",
+      categoryId: "salads",
+      title: "Castle Spl. Salad",
+      price: "150"
+    },
+    {
+      _id: "sal9",
+      categoryId: "salads",
+      title: "Huwain Chicken Salad",
+      price: "160"
+    },
+    {
+      _id: "sal10",
+      categoryId: "salads",
+      title: "Chicken Tikka Salad",
+      price: "170"
+    },
 
-  useEffect(() => {
-    fetchMenuData();
-  }, []);
+    // Continue adding all items following this pattern...
+    
+    // Last section - Fruit with Cream
+    {
+      _id: "fc1",
+      categoryId: "fruit_cream",
+      title: "Strawberry Cream",
+      price: "180"
+    },
+    {
+      _id: "fc2",
+      categoryId: "fruit_cream",
+      title: "Mixed Fruit Cream",
+      price: "200"
+    },
+    {
+      _id: "fc3",
+      categoryId: "fruit_cream",
+      title: "Apple Cream",
+      price: "200"
+    },
+    {
+      _id: "fc4",
+      categoryId: "fruit_cream",
+      title: "Dry Fruit Cream",
+      price: "240",
+      description: "Chef's special"
+    },
+    {
+      _id: "fc5",
+      categoryId: "fruit_cream",
+      title: "Avacado Cream",
+      price: "240"
+    }
+  ]
+};
 
-  const fetchMenuData = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await fetch("/api/menu");
-      const data = await response.json();
-      setMenuData({
-        categories: Array.isArray(data.categories) ? data.categories : [],
-        items: Array.isArray(data.items) ? data.items : [],
-      });
-    } catch (error) {
-      console.error("Error fetching menu data:", error);
-      setError("Failed to fetch menu data");
-    } finally {
-      setLoading(false);
+const MenuItem = ({ item }) => (
+  <div className="min-w-[300px] bg-black/20 backdrop-blur rounded-lg overflow-hidden mr-4 flex-shrink-0">
+    <img 
+      src={item.imageUrl || "/api/placeholder/300/200"} 
+      alt={item.title}
+      className="w-full h-48 object-cover"
+    />
+    <div className="p-4">
+      <h3 className="text-lg font-bold text-white mb-1">{item.title}</h3>
+      {item.description && (
+        <p className="text-sm text-gray-300 mb-2">{item.description}</p>
+      )}
+      <p className="text-[#76004C] font-bold">₹{item.price}</p>
+    </div>
+  </div>
+);
+
+const CategorySection = ({ category, items }) => {
+  const scrollRef = React.useRef(null);
+
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const { current } = scrollRef;
+      const scrollAmount = direction === 'left' ? -400 : 400;
+      current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
 
-  const filteredItems =
-    selectedCategory === "all"
-      ? menuData.items
-      : menuData.items.filter((item) => {
-          const category = menuData.categories.find(
-            (cat) => cat._id === item.categoryId
-          );
-          return category?._id === selectedCategory;
-        });
-
   return (
-    <>
-    <div className="min-h-screen bg-gradient-to-br from-[#76004C] via-[#4A0030] to-[#2D001D]">
-      {/* Animated Header */}
-      <Header/>
-      <motion.div 
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-white py-16 px-4 relative"
-      >
-        <div className="max-w-6xl mx-auto text-center">
-          <motion.h1 
-            className="text-6xl font-serif mb-4 tracking-wider"
-            initial={{ scale: 0.8 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            Our Culinary Selection
-          </motion.h1>
-          <motion.div 
-            className="h-0.5 w-32 bg-white mx-auto mb-4"
-            initial={{ width: 0 }}
-            animate={{ width: 128 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          />
-          <motion.p 
-            className="text-xl italic opacity-90"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            A Journey Through Exquisite Flavors
-          </motion.p>
-        </div>
-      </motion.div>
-
-      <div className="max-w-6xl mx-auto px-4 pb-16">
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className="bg-white/95 backdrop-blur rounded-2xl shadow-2xl p-8"
+    <div className="mb-12">
+      <h2 className="text-2xl font-bold text-white mb-4 px-4">{category.name}</h2>
+      <div className="relative group">
+        <button 
+          onClick={() => scroll('left')}
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
         >
-          {/* Categories as horizontal elegant buttons */}
-          <motion.div 
-            className="w-full mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <h2 className="text-2xl font-serif text-[#76004C] mb-6 text-center">
-              CURATED SELECTIONS
-            </h2>
-            <div className="flex flex-col items-center space-y-8">
-              <div className="flex justify-center items-center space-x-6">
-                <motion.div 
-                  className="h-px w-16 bg-[#76004C]"
-                  initial={{ width: 0 }}
-                  animate={{ width: 64 }}
-                  transition={{ duration: 1 }}
-                />
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setSelectedCategory("all")}
-                  className={`text-xl tracking-widest font-bold transition-all ${
-                    selectedCategory === "all"
-                      ? "text-[#76004C]"
-                      : "text-[#76004C]/60 hover:text-[#76004C]"
-                  }`}
-                >
-                  ALL
-                </motion.button>
-                <motion.div 
-                  className="h-px w-16 bg-[#76004C]"
-                  initial={{ width: 0 }}
-                  animate={{ width: 64 }}
-                  transition={{ duration: 1 }}
-                />
-              </div>
-              <div className="flex flex-wrap justify-center gap-12">
-                {menuData.categories.map((category) => (
-                  <motion.button
-                    key={category._id}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setSelectedCategory(category._id)}
-                    className={`text-xl tracking-widest font-bold transition-all ${
-                      selectedCategory === category._id
-                        ? "text-[#76004C]"
-                        : "text-[#76004C]/60 hover:text-[#76004C]"
-                    }`}
-                  >
-                    {category.name.toUpperCase()}
-                  </motion.button>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Menu Items */}
-          {loading ? (
-            <motion.div 
-              className="text-center py-16"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-            >
-              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#76004C] mx-auto"></div>
-              <p className="mt-4 text-[#76004C] font-serif">Preparing your menu...</p>
-            </motion.div>
-          ) : error ? (
-            <motion.div 
-              className="text-center py-16 text-[#76004C]"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-            >
-              <p className="text-xl font-serif">{error}</p>
-            </motion.div>
-          ) : (
-            <AnimatePresence mode="wait">
-              <motion.div 
-                key={selectedCategory}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-                className="grid gap-8"
-              >
-                {filteredItems.length === 0 ? (
-                  <motion.div 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-center py-16"
-                  >
-                    <p className="text-2xl text-[#76004C] font-bold tracking-wide">
-                      No selections available in this category.
-                    </p>
-                  </motion.div>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {filteredItems.map((item, index) => {
-                      const category = menuData.categories.find(
-                        (cat) => cat._id === item.categoryId
-                      );
-                      return (
-                        <motion.div
-                          key={item._id}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: index * 0.1 }}
-                          className="group relative bg-white rounded-xl overflow-hidden shadow-lg"
-                        >
-                          {item.imageUrl && (
-                            <motion.div 
-                              className="h-48 w-full overflow-hidden"
-                              whileHover={{ scale: 1.05 }}
-                              transition={{ duration: 0.3 }}
-                            >
-                              <img
-                                src={item.imageUrl}
-                                alt={item.title}
-                                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-                              />
-                            </motion.div>
-                          )}
-                          <motion.div 
-                            className="p-6"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.2 }}
-                          >
-                            <div className="mb-4">
-                              <motion.h3 
-                                className="text-2xl font-bold text-[#76004C] tracking-wide mb-2 group-hover:text-[#76004C]/80 transition-colors"
-                                whileHover={{ x: 10 }}
-                                transition={{ type: "spring", stiffness: 300 }}
-                              >
-                                {item.title}
-                              </motion.h3>
-                              <p className="text-sm uppercase tracking-wider text-[#76004C]/70 font-medium">
-                                {category?.name || "Chef's Special"}
-                              </p>
-                            </div>
-                            {item.description && (
-                              <p className="text-gray-600 leading-relaxed text-sm mb-4">
-                                {item.description}
-                              </p>
-                            )}
-                            <motion.div
-                              className="flex justify-between items-center"
-                              whileHover={{ scale: 1.05 }}
-                              transition={{ type: "spring", stiffness: 400 }}
-                            >
-                              <div className="h-px flex-grow bg-[#76004C]/20"></div>
-                              <p className="text-2xl font-bold text-[#76004C] px-4">
-                                ₹{item.price}
-                              </p>
-                              <div className="h-px flex-grow bg-[#76004C]/20"></div>
-                            </motion.div>
-                          </motion.div>
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-                )}
-              </motion.div>
-            </AnimatePresence>
-          )}
-        </motion.div>
+          <ChevronLeft className="text-white" />
+        </button>
+        <div 
+          ref={scrollRef}
+          className="flex overflow-x-auto scrollbar-hide px-4 py-2 scroll-smooth"
+        >
+          {items.map((item) => (
+            <MenuItem key={item._id} item={item} />
+          ))}
+        </div>
+        <button 
+          onClick={() => scroll('right')}
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+        >
+          <ChevronRight className="text-white" />
+        </button>
       </div>
     </div>
-    </>
+  );
+};
+
+export default function Menu() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-[#76004C] via-[#4A0030] to-[#2D001D]">
+      <Header />
+      
+      {/* Hero Section */}
+      <div className="relative h-[70vh] mb-8">
+        <img
+          src="/api/placeholder/1920/1080"
+          alt="Featured Dish"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#76004C] via-transparent to-transparent" />
+        <div className="absolute bottom-0 left-0 p-8 w-full">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h1 className="text-5xl font-bold text-white mb-4">Castle Special Mandi</h1>
+            <p className="text-xl text-gray-200 max-w-2xl mb-6">
+              Experience our signature dish - slow-cooked aromatic rice with tender meat, 
+              served with special sauces and fresh salad.
+            </p>
+            <div className="flex items-center space-x-4">
+              <span className="text-[#76004C] bg-white px-3 py-1 rounded-full font-bold">
+                Chef's Special
+              </span>
+              <span className="text-white">₹799 onwards</span>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Categories */}
+      <div className="pb-16">
+        {menuData.categories.map((category) => {
+          const categoryItems = menuData.items.filter(
+            (item) => item.categoryId === category._id
+          );
+          if (categoryItems.length === 0) return null;
+          return (
+            <CategorySection 
+              key={category._id} 
+              category={category} 
+              items={categoryItems} 
+            />
+          );
+        })}
+      </div>
+    </div>
   );
 }

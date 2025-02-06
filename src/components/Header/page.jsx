@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import HeaderMenu from "../HeaderMenu/page";
-import { X } from "lucide-react";
+import { X, Facebook, Instagram, Youtube } from "lucide-react";
 
 export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -12,7 +12,6 @@ export default function Header() {
 
     return (
         <header className="relative flex justify-between items-center px-5 md:px-20 py-5 text-white">
-            {/* Logo */}
             <div>
                 <a href="/">
                     <img 
@@ -23,25 +22,22 @@ export default function Header() {
                 </a>
             </div>
 
-            {/* Desktop Navigation */}
             <div className="hidden md:block">
                 <HeaderMenu />
             </div>
 
-            {/* Desktop Reservation Button */}
             <div className="hidden md:block">
                 <Link href="/reg-waitlist">
-                    <button className="border-2 border-white px-6 py-2 rounded-md hover:bg-white hover:text-gray-900 transition">
+                    <button className="bg-[#660050] border-2 border-[#660050] px-6 py-2 rounded-md hover:bg-transparent hover:text-[#660050] transition duration-300">
                         Reserve
                     </button>
                 </Link>
             </div>
 
-            {/* Mobile Menu Button */}
             <div className="block md:hidden">
                 <button 
                     onClick={toggleMobileMenu}
-                    className="text-white focus:outline-none"
+                    className="text-[#660050] focus:outline-none"
                     aria-label="Toggle mobile menu"
                 >
                     {!isMobileMenuOpen ? (
@@ -65,7 +61,6 @@ export default function Header() {
                 </button>
             </div>
 
-            {/* Mobile Menu Overlay */}
             <div 
                 className={`fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300 md:hidden ${
                     isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
@@ -73,64 +68,73 @@ export default function Header() {
                 onClick={toggleMobileMenu}
             />
 
-            {/* Mobile Menu Panel */}
             <div 
-                className={`fixed right-0 top-0 h-full w-4/5 bg-gray-900 z-50 transform transition-transform duration-300 ease-in-out md:hidden ${
+                className={`fixed right-0 top-0 h-full w-4/5 bg-[#1a1a1a] z-50 transform transition-transform duration-300 ease-in-out md:hidden ${
                     isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
                 }`}
             >
                 <div className="flex flex-col h-full p-6">
-                    {/* Mobile Menu Close Button */}
                     <button 
                         onClick={toggleMobileMenu}
-                        className="self-end mb-8"
+                        className="self-end mb-8 text-[#660050]"
                         aria-label="Close mobile menu"
                     >
                         <X className="w-8 h-8" />
                     </button>
 
-                    {/* Mobile Menu Items */}
                     <nav className="flex flex-col space-y-6">
                         <Link 
                             href="/about"
-                            className="text-lg font-bold hover:text-gray-300"
+                            className="text-lg font-bold text-[#660050] hover:text-[#4a003a] transition duration-300"
                             onClick={toggleMobileMenu}
                         >
                             About Us
                         </Link>
                         <Link 
                             href="/menu"
-                            className="text-lg font-bold hover:text-gray-300"
+                            className="text-lg font-bold text-[#660050] hover:text-[#4a003a] transition duration-300"
                             onClick={toggleMobileMenu}
                         >
                             Menu
                         </Link>
                         <Link 
                             href="/services"
-                            className="text-lg font-bold hover:text-gray-300"
+                            className="text-lg font-bold text-[#660050] hover:text-[#4a003a] transition duration-300"
                             onClick={toggleMobileMenu}
                         >
                             Services
                         </Link>
                         <Link 
                             href="/reg-waitlist"
-                            className="text-lg font-bold hover:text-gray-300"
+                            className="text-lg font-bold text-[#660050] hover:text-[#4a003a] transition duration-300"
                             onClick={toggleMobileMenu}
                         >
                             Reservations
                         </Link>
                     </nav>
 
-                    {/* Mobile Reservation Button */}
-                    <Link 
-                        href="/reg-waitlist"
-                        className="mt-auto"
-                        onClick={toggleMobileMenu}
-                    >
-                        <button className="w-full border-2 border-white px-6 py-2 rounded-md hover:bg-white hover:text-gray-900 transition">
-                            Reserve Now
-                        </button>
-                    </Link>
+                    <div className="mt-auto">
+                        <Link 
+                            href="/reg-waitlist"
+                            onClick={toggleMobileMenu}
+                        >
+                            <button className="w-full bg-[#660050] text-white px-6 py-2 rounded-md hover:bg-[#4a003a] transition duration-300 mb-6">
+                                Reserve Now
+                            </button>
+                        </Link>
+
+                        <div className="flex justify-center space-x-6 pt-6 border-t border-[#660050]/20">
+                            <a href="#" className="text-[#660050] hover:text-[#4a003a] transition duration-300">
+                                <Facebook className="w-6 h-6" />
+                            </a>
+                            <a href="#" className="text-[#660050] hover:text-[#4a003a] transition duration-300">
+                                <Instagram className="w-6 h-6" />
+                            </a>
+                            <a href="#" className="text-[#660050] hover:text-[#4a003a] transition duration-300">
+                                <Youtube className="w-6 h-6" />
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>

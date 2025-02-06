@@ -1,4 +1,5 @@
 import React from 'react';
+import { Facebook, Instagram, Youtube, Twitter } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -9,6 +10,20 @@ const Footer = () => {
           <div className="mb-6">
             <img src="Resto-mandi-logo.png" alt="Company Logo" className="h-36 rounded-full" />
           </div>
+          <div className="flex space-x-4 mb-4">
+            <a href="#" className="hover:text-gray-300 transition-colors">
+              <Facebook className="w-6 h-6" />
+            </a>
+            <a href="#" className="hover:text-gray-300 transition-colors">
+              <Instagram className="w-6 h-6" />
+            </a>
+            <a href="#" className="hover:text-gray-300 transition-colors">
+              <Youtube className="w-6 h-6" />
+            </a>
+            <a href="#" className="hover:text-gray-300 transition-colors">
+              <Twitter className="w-6 h-6" />
+            </a>
+          </div>
           <p className="text-sm text-center md:text-left">
             © 2024 Random Company. All rights reserved.
           </p>
@@ -18,7 +33,6 @@ const Footer = () => {
         <div className="space-y-8">
           <h3 className="text-2xl font-semibold">Contact</h3>
 
-          {/* Random Branch 1 */}
           <div className="space-y-2">
             <h4 className="text-lg font-medium">Random Branch 1</h4>
             <p className="text-sm">123 Placeholder Street, Near Random Mall, Random City 123456</p>
@@ -26,7 +40,6 @@ const Footer = () => {
             <p className="text-sm">randombranch1@example.com</p>
           </div>
 
-          {/* Random Branch 2 */}
           <div className="space-y-2">
             <h4 className="text-lg font-medium">Random Branch 2</h4>
             <p className="text-sm">456 Example Avenue, Opposite Placeholder Park, Example City 654321</p>

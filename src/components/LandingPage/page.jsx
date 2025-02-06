@@ -9,6 +9,7 @@ import ProfessionalLeaders from "../Members/page";
 import ChooseYourItems from "../Menu/page";
 import PricingMenu from "../Pricing/page";
 import Link from 'next/link';
+import SocialMediaShowcase from '../SocialMediaShowcase/page';
 
 const AnimatedTitle = () => {
   const letters = "Castle Resto".split("");
@@ -148,6 +149,16 @@ export default function LandingPage() {
                 <PricingMenu />
             </motion.section>
 
+          
+          <motion.section
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                variants={sectionVariants}
+            >
+                <SocialMediaShowcase/> 
+            </motion.section>
+
             <motion.section
                 initial="hidden"
                 whileInView="visible"
@@ -165,7 +176,7 @@ export default function LandingPage() {
             >
                 <ReviewSection />
             </motion.section>
-
+{/* 
             <motion.section
                 initial="hidden"
                 whileInView="visible"
@@ -173,7 +184,7 @@ export default function LandingPage() {
                 variants={sectionVariants}
             >
                 <ProfessionalLeaders />
-            </motion.section>
+            </motion.section> */}
             <Footer />
         </>
     );
