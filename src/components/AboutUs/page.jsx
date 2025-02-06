@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   UtensilsCrossed, 
   Clock, 
@@ -10,13 +10,66 @@ import {
   Heart
 } from 'lucide-react';
 
+const AnimatedCounter = ({ end, duration = 2000 }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTime;
+    let animationFrame;
+
+    const animate = (currentTime) => {
+      if (!startTime) startTime = currentTime;
+      const progress = (currentTime - startTime) / duration;
+
+      if (progress < 1) {
+        setCount(Math.min(Math.floor(end * progress), end));
+        animationFrame = requestAnimationFrame(animate);
+      } else {
+        setCount(end);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, [end, duration]);
+
+  return <span>{count}</span>;
+};
+
 const AboutUs = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const statsSection = document.getElementById('stats-section');
+    if (statsSection) {
+      observer.observe(statsSection);
+    }
+
+    return () => {
+      if (statsSection) {
+        observer.unobserve(statsSection);
+      }
+    };
+  }, []);
+
   return (
     <div className="w-full min-h-screen bg-white">
-      {/* Hero Section */}
       <div className="w-full px-4 py-16 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          {/* Header */}
           <div className="text-center mb-16">
             <h1 className="text-4xl sm:text-5xl font-bold text-[#660050] mb-4">
               About Castle Resto
@@ -24,9 +77,7 @@ const AboutUs = () => {
             <div className="w-24 h-1 bg-[#660050] mx-auto mb-8"></div>
           </div>
 
-          {/* Main Content */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
-            {/* Left side - Text Content */}
             <div className="space-y-6 p-8 bg-white rounded-2xl shadow-lg border border-[#660050]/10">
               <p className="text-lg text-gray-700 leading-relaxed">
                 Since its inception in 2013, Castle Resto Mandi has swiftly risen to prominence 
@@ -37,27 +88,31 @@ const AboutUs = () => {
                 Our remarkable journey is a testament to our unwavering determination, 
                 boundless passion, and distinctive culinary expertise that sets us apart.
               </p>
-              {/* Stats Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 mt-8">
+              <div id="stats-section" className="grid grid-cols-2 sm:grid-cols-3 gap-6 mt-8">
                 <div className="text-center p-4 bg-[#660050]/5 rounded-lg hover:bg-[#660050]/10 transition-colors">
                   <Clock className="w-8 h-8 text-[#660050] mx-auto mb-2" />
-                  <p className="font-bold text-2xl text-gray-800">10+</p>
+                  <p className="font-bold text-2xl text-gray-800">
+                    {isVisible && <AnimatedCounter end={10} />}+
+                  </p>
                   <p className="text-sm text-gray-600">Years of Excellence</p>
                 </div>
                 <div className="text-center p-4 bg-[#660050]/5 rounded-lg hover:bg-[#660050]/10 transition-colors">
                   <Award className="w-8 h-8 text-[#660050] mx-auto mb-2" />
-                  <p className="font-bold text-2xl text-gray-800">50+</p>
+                  <p className="font-bold text-2xl text-gray-800">
+                    {isVisible && <AnimatedCounter end={50} />}+
+                  </p>
                   <p className="text-sm text-gray-600">Awards Won</p>
                 </div>
                 <div className="text-center p-4 bg-[#660050]/5 rounded-lg hover:bg-[#660050]/10 transition-colors">
                   <Users className="w-8 h-8 text-[#660050] mx-auto mb-2" />
-                  <p className="font-bold text-2xl text-gray-800">100K+</p>
+                  <p className="font-bold text-2xl text-gray-800">
+                    {isVisible && <AnimatedCounter end={100} />}K+
+                  </p>
                   <p className="text-sm text-gray-600">Happy Customers</p>
                 </div>
               </div>
             </div>
 
-            {/* Right side - Image Grid */}
             <div className="grid grid-cols-2 gap-4">
               <img
                 src="ss01.png"
@@ -82,7 +137,6 @@ const AboutUs = () => {
             </div>
           </div>
 
-          {/* Features Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
             <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-[#660050]/5 group border border-[#660050]/10">
               <ChefHat className="w-12 h-12 text-[#660050] mb-4 group-hover:scale-110 transition-transform" />
@@ -106,7 +160,6 @@ const AboutUs = () => {
             </div>
           </div>
 
-          {/* Testimonial Section */}
           <div className="bg-[#660050]/5 rounded-2xl p-8 text-center max-w-3xl mx-auto border border-[#660050]/10">
             <Star className="w-12 h-12 text-[#660050] mx-auto mb-6" />
             <p className="text-xl italic text-gray-700 mb-6">

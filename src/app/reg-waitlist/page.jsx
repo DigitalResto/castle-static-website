@@ -3,6 +3,7 @@ import { addToWaitList_FN, checkOTP_FN } from "@/util/Axios/Methods/POST";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { getSocket } from "@/util/socket";
+import Link from "next/link";
 
 export default function WaitListRegister() {
     const [isLoading, setIsLoading] = useState(false);
@@ -206,7 +207,6 @@ export default function WaitListRegister() {
                 >
                     {isLoading ? (isOtpStage ? "Verifying..." : "Joining...") : (isOtpStage ? "Verify OTP" : "Join")}
                 </button>
-
             </div>
             <div className="w-full md:w-1/2 hidden md:flex items-center justify-center p-5">
                 <img
