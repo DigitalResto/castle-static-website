@@ -119,17 +119,17 @@ const AboutUs = () => {
                 className="w-full h-64 object-cover rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
               />
               <img
-                src="peri-peri-mandi.png"
+                src="ss04.png"
                 alt="Signature Dish"
                 className="w-full h-64 object-cover rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
               />
               <img
-                src="Resto-mandi-logo.png"
+                src="ss03.png"
                 alt="Chef at Work"
                 className="w-full h-64 object-cover rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
               />
               <img
-                src="image02.jpg"
+                src="ss02.png"
                 alt="Restaurant Ambiance"
                 className="w-full h-64 object-cover rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
               />

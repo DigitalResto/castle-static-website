@@ -43,7 +43,7 @@ const SocialMediaShowcase = () => {
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-[#024548] mb-4">Follow Us on Instagram</h2>
           <div className="w-24 h-1 bg-[#024548] mx-auto mb-6"></div>
-          <p className="text-gray-600">@castle.resto</p>
+          <p className="text-gray-600">@castlerestaurant.blr</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -15,7 +15,7 @@ export default function Header() {
             <div>
                 <a href="/">
                     <img 
-                        src="Resto-mandi-logo.png" 
+                        src="new-logo.jpg"
                         alt="Logo" 
                         className="w-12 md:w-14 rounded-full" 
                     />

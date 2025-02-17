@@ -8,7 +8,7 @@ const Footer = () => {
         {/* Logo and Company Info */}
         <div className="flex flex-col items-center md:items-start">
           <div className="mb-6">
-            <img src="Resto-mandi-logo.png" alt="Company Logo" className="h-36 rounded-full" />
+            <img src="new-logo.jpg" alt="Company Logo" className="h-36 rounded-full" />
           </div>
           <div className="flex space-x-4 mb-4">
             <a href="#" className="hover:text-gray-300 transition-colors">
