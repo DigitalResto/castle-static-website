@@ -40,7 +40,7 @@ const AnimatedTitle = () => {
                 }
               }
             }}
-            className={letter === " " ? "mx-4" : "hover:text-[#7D0148] transition-colors duration-300"}
+            className={letter === " " ? "mx-4" : "hover:text-[#024548] transition-colors duration-300"}
           >
             {letter}
           </motion.span>
@@ -59,7 +59,7 @@ const AnimatedTitle = () => {
         
         <div className="flex items-center space-x-2">
           <motion.span 
-            className="text-3xl md:text-4xl font-bold text-[#7D0148]"
+            className="text-3xl md:text-4xl font-bold text-[#024548]"
             whileHover={{ scale: 1.1 }}
           >
             Mandhi
@@ -69,15 +69,15 @@ const AnimatedTitle = () => {
           </span>
         </div>
 
-<Link href={'/reg-waitlist'}>
-<motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="bg-[#7D0148] text-white px-8 py-3 rounded-full text-lg font-semibold mt-4"
-        >
-          Reserve Your Table
-        </motion.button>
-</Link>
+        <Link href={'/reg-waitlist'}>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-[#024548] text-white px-8 py-3 rounded-full text-lg font-semibold mt-4"
+          >
+            Reserve Your Table
+          </motion.button>
+        </Link>
       </motion.div>
     </motion.div>
   );
@@ -106,7 +106,7 @@ export default function LandingPage() {
     return (
         <>
             <motion.div
-                className="fixed top-0 left-0 right-0 h-1 bg-[#7D0148] transform origin-left z-50"
+                className="fixed top-0 left-0 right-0 h-1 bg-[#024548] transform origin-left z-50"
                 style={{ scaleX }}
             />
             

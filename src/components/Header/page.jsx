@@ -28,7 +28,7 @@ export default function Header() {
 
             <div className="hidden md:block">
                 <Link href="/reg-waitlist">
-                    <button className="bg-[#660050] border-2 border-[#660050] px-6 py-2 rounded-md hover:bg-transparent hover:text-[#660050] transition duration-300">
+                    <button className="bg-[#024548] border-2 border-[#024548] px-6 py-2 rounded-md hover:bg-transparent hover:text-[#024548] transition duration-300">
                         Reserve
                     </button>
                 </Link>
@@ -37,7 +37,7 @@ export default function Header() {
             <div className="block md:hidden">
                 <button 
                     onClick={toggleMobileMenu}
-                    className="text-[#660050] focus:outline-none"
+                    className="text-[#024548] focus:outline-none"
                     aria-label="Toggle mobile menu"
                 >
                     {!isMobileMenuOpen ? (
@@ -76,7 +76,7 @@ export default function Header() {
                 <div className="flex flex-col h-full p-6">
                     <button 
                         onClick={toggleMobileMenu}
-                        className="self-end mb-8 text-[#660050]"
+                        className="self-end mb-8 text-[#024548]"
                         aria-label="Close mobile menu"
                     >
                         <X className="w-8 h-8" />
@@ -85,28 +85,28 @@ export default function Header() {
                     <nav className="flex flex-col space-y-6">
                         <Link 
                             href="/about"
-                            className="text-lg font-bold text-[#660050] hover:text-[#4a003a] transition duration-300"
+                            className="text-lg font-bold text-[#024548] hover:text-[#013133] transition duration-300"
                             onClick={toggleMobileMenu}
                         >
                             About Us
                         </Link>
                         <Link 
                             href="/menu"
-                            className="text-lg font-bold text-[#660050] hover:text-[#4a003a] transition duration-300"
+                            className="text-lg font-bold text-[#024548] hover:text-[#013133] transition duration-300"
                             onClick={toggleMobileMenu}
                         >
                             Menu
                         </Link>
                         <Link 
                             href="/services"
-                            className="text-lg font-bold text-[#660050] hover:text-[#4a003a] transition duration-300"
+                            className="text-lg font-bold text-[#024548] hover:text-[#013133] transition duration-300"
                             onClick={toggleMobileMenu}
                         >
                             Services
                         </Link>
                         <Link 
                             href="/reg-waitlist"
-                            className="text-lg font-bold text-[#660050] hover:text-[#4a003a] transition duration-300"
+                            className="text-lg font-bold text-[#024548] hover:text-[#013133] transition duration-300"
                             onClick={toggleMobileMenu}
                         >
                             Reservations
@@ -118,19 +118,19 @@ export default function Header() {
                             href="/reg-waitlist"
                             onClick={toggleMobileMenu}
                         >
-                            <button className="w-full bg-[#660050] text-white px-6 py-2 rounded-md hover:bg-[#4a003a] transition duration-300 mb-6">
+                            <button className="w-full bg-[#024548] text-white px-6 py-2 rounded-md hover:bg-[#013133] transition duration-300 mb-6">
                                 Reserve Now
                             </button>
                         </Link>
 
-                        <div className="flex justify-center space-x-6 pt-6 border-t border-[#660050]/20">
-                            <a href="#" className="text-[#660050] hover:text-[#4a003a] transition duration-300">
+                        <div className="flex justify-center space-x-6 pt-6 border-t border-[#024548]/20">
+                            <a href="#" className="text-[#024548] hover:text-[#013133] transition duration-300">
                                 <Facebook className="w-6 h-6" />
                             </a>
-                            <a href="#" className="text-[#660050] hover:text-[#4a003a] transition duration-300">
+                            <a href="#" className="text-[#024548] hover:text-[#013133] transition duration-300">
                                 <Instagram className="w-6 h-6" />
                             </a>
-                            <a href="#" className="text-[#660050] hover:text-[#4a003a] transition duration-300">
+                            <a href="#" className="text-[#024548] hover:text-[#013133] transition duration-300">
                                 <Youtube className="w-6 h-6" />
                             </a>
                         </div>

@@ -41,8 +41,8 @@ const SocialMediaShowcase = () => {
     <div className="w-full bg-white py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-[#660050] mb-4">Follow Us on Instagram</h2>
-          <div className="w-24 h-1 bg-[#660050] mx-auto mb-6"></div>
+          <h2 className="text-4xl font-bold text-[#024548] mb-4">Follow Us on Instagram</h2>
+          <div className="w-24 h-1 bg-[#024548] mx-auto mb-6"></div>
           <p className="text-gray-600">@castle.resto</p>
         </div>
 
@@ -82,7 +82,7 @@ const SocialMediaShowcase = () => {
         <div className="text-center mt-12">
           <a 
             href="#" 
-            className="inline-flex items-center space-x-2 text-[#660050] hover:text-[#4a003a] font-medium"
+            className="inline-flex items-center space-x-2 text-[#024548] hover:text-[#013133] font-medium"
           >
             <Instagram className="w-5 h-5" />
             <span>View More on Instagram</span>

@@ -6,14 +6,14 @@ const ProductCard = ({ image, name, price }) => {
     <div className="group bg-white rounded-2xl shadow-xl p-6 transform transition-transform duration-300 hover:-translate-y-2">
       <div className="relative">
         <div className="absolute top-0 right-0 bg-white rounded-full p-2 shadow-md">
-          <Heart className="w-5 h-5 text-[#78004D] cursor-pointer" />
+          <Heart className="w-5 h-5 text-[#024548] cursor-pointer" />
         </div>
         <img 
           src={image} 
           alt={name} 
           className="w-full h-56 object-contain rounded-xl mb-4 transition-transform duration-300 group-hover:scale-105" 
         />
-        <div className="absolute bottom-4 right-4 bg-[#78004D] rounded-full p-2 cursor-pointer transform transition-transform duration-300 hover:scale-110">
+        <div className="absolute bottom-4 right-4 bg-[#024548] rounded-full p-2 cursor-pointer transform transition-transform duration-300 hover:scale-110">
           <Plus className="w-5 h-5 text-white" />
         </div>
       </div>
@@ -22,12 +22,12 @@ const ProductCard = ({ image, name, price }) => {
           <h3 className="text-lg font-semibold text-gray-800 mb-2">{name}</h3>
           <div className="flex items-center gap-1 mb-2">
             {[...Array(5)].map((_, i) => (
-              <Star key={i} className="w-4 h-4 fill-[#78004D] text-[#78004D]" />
+              <Star key={i} className="w-4 h-4 fill-[#024548] text-[#024548]" />
             ))}
           </div>
         </div>
         <div className="text-right">
-          <p className="text-[#78004D] font-bold text-xl">${price}</p>
+          <p className="text-[#024548] font-bold text-xl">${price}</p>
         </div>
       </div>
     </div>
@@ -54,11 +54,11 @@ const ChooseYourItems = () => {
   ];
 
   return (
-    <div className="py-16 bg-gradient-to-b from-white via-purple-50 to-white">
+    <div className="py-16 bg-gradient-to-b from-white via-[#024548]/5 to-white">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-center gap-2 mb-2">
-          <ShoppingBag className="w-5 h-5 text-[#78004D]" />
-          <h2 className="text-center text-[#78004D] uppercase text-sm font-semibold">
+          <ShoppingBag className="w-5 h-5 text-[#024548]" />
+          <h2 className="text-center text-[#024548] uppercase text-sm font-semibold">
             Popular Products
           </h2>
         </div>

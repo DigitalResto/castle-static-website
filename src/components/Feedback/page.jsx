@@ -185,7 +185,7 @@ const ReviewSection = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="text-center mb-12 relative"
       >
-        <h2 className="text-4xl font-bold text-[#7D0148] mb-4">
+        <h2 className="text-4xl font-bold text-[#024548] mb-4">
           What Our Guests Say
         </h2>
         <p className="text-gray-600 text-lg">
@@ -203,7 +203,7 @@ const ReviewSection = () => {
           }`}
           disabled={scrollX === 0}
         >
-          <ChevronLeft size={24} className="text-[#7D0148]" />
+          <ChevronLeft size={24} className="text-[#024548]" />
         </motion.button>
 
         <motion.button
@@ -217,7 +217,7 @@ const ReviewSection = () => {
           }`}
           disabled={scrollX >= maxScroll}
         >
-          <ChevronRight size={24} className="text-[#7D0148]" />
+          <ChevronRight size={24} className="text-[#024548]" />
         </motion.button>
 
         <motion.div
@@ -234,7 +234,7 @@ const ReviewSection = () => {
         </motion.div>
         <div className="flex justify-center my-5">
           <Link href={'/feedback'}>
-          <button className="group inline-flex items-center gap-2 bg-[#78004D] text-white px-6 py-3 rounded-full hover:bg-[#8F005C] transition-colors">
+          <button className="group inline-flex items-center gap-2 bg-[#024548] text-white px-6 py-3 rounded-full hover:bg-[#8F005C] transition-colors">
             Give Your Feedback
             <ArrowUpRight className="w-4 h-4 transform transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
           </button>
