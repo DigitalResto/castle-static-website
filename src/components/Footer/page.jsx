@@ -47,7 +47,7 @@ const Footer = () => {
             <p className="text-sm">randombranch2@example.com</p>
           </div>
           <a
-            href="https://www.google.com/maps/search/Nahdi+Mandi/@12.493782,76.0881552,8.04z?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D"
+            href="https://www.google.com/maps/place/Castle+Multi+Cuisine+Restaurant/@12.931832,77.6062244,15.21z/data=!4m10!1m2!2m1!1sCastle+Multi+Cusine+Restaurant!3m6!1s0x3bae15b65bce4843:0x5c372af0696e6537!8m2!3d12.9226241!4d77.6144043!15sCh5DYXN0bGUgTXVsdGkgQ3VzaW5lIFJlc3RhdXJhbnRaICIeY2FzdGxlIG11bHRpIGN1c2luZSByZXN0YXVyYW50kgEXbm9ydGhfaW5kaWFuX3Jlc3RhdXJhbnTgAQA!16s%2Fg%2F11t6lhd7kf?entry=ttu&g_ep=EgoyMDI1MDIxMi4wIKXMDSoASAFQAw%3D%3D"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-400 hover:underline text-sm"
