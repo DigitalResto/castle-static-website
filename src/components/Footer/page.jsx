@@ -14,7 +14,7 @@ const Footer = () => {
             <a href="#" className="hover:text-gray-300 transition-colors">
               <Facebook className="w-6 h-6" />
             </a>
-            <a href="#" className="hover:text-gray-300 transition-colors">
+            <a href="https://www.instagram.com/castlerestaurant.blr/" className="hover:text-gray-300 transition-colors" target='__blank'>
               <Instagram className="w-6 h-6" />
             </a>
             <a href="#" className="hover:text-gray-300 transition-colors">
@@ -25,7 +25,7 @@ const Footer = () => {
             </a>
           </div>
           <p className="text-sm text-center md:text-left">
-            © 2024 Random Company. All rights reserved.
+            © 2025 Castle Restaurant. All rights reserved.
           </p>
         </div>
 
@@ -34,17 +34,24 @@ const Footer = () => {
           <h3 className="text-2xl font-semibold">Contact</h3>
 
           <div className="space-y-2">
-            <h4 className="text-lg font-medium">Random Branch 1</h4>
+            <h4 className="text-lg font-medium">Madiwalla</h4>
             <p className="text-sm">123 Placeholder Street, Near Random Mall, Random City 123456</p>
             <p className="text-sm">+91 1234567890</p>
-            <p className="text-sm">randombranch1@example.com</p>
+            <p className="text-sm">compliance@castlerestaurants.in	</p>
           </div>
 
           <div className="space-y-2">
-            <h4 className="text-lg font-medium">Random Branch 2</h4>
+            <h4 className="text-lg font-medium">Madiwalla - South</h4>
             <p className="text-sm">456 Example Avenue, Opposite Placeholder Park, Example City 654321</p>
             <p className="text-sm">+91 9876543210</p>
-            <p className="text-sm">randombranch2@example.com</p>
+            <p className="text-sm">compliance@castlerestaurants.in	</p>
+          </div>
+
+          <div className="space-y-2">
+            <h4 className="text-lg font-medium">Malappuram</h4>
+            <p className="text-sm">456 Example Avenue, Opposite Placeholder Park, Example City 654321</p>
+            <p className="text-sm">+91 9876543210</p>
+            <p className="text-sm">compliance@castlerestaurants.in	</p>
           </div>
           <a
             href="https://www.google.com/maps/place/Castle+Multi+Cuisine+Restaurant/@12.931832,77.6062244,15.21z/data=!4m10!1m2!2m1!1sCastle+Multi+Cusine+Restaurant!3m6!1s0x3bae15b65bce4843:0x5c372af0696e6537!8m2!3d12.9226241!4d77.6144043!15sCh5DYXN0bGUgTXVsdGkgQ3VzaW5lIFJlc3RhdXJhbnRaICIeY2FzdGxlIG11bHRpIGN1c2luZSByZXN0YXVyYW50kgEXbm9ydGhfaW5kaWFuX3Jlc3RhdXJhbnTgAQA!16s%2Fg%2F11t6lhd7kf?entry=ttu&g_ep=EgoyMDI1MDIxMi4wIKXMDSoASAFQAw%3D%3D"
@@ -60,12 +67,8 @@ const Footer = () => {
         <div className="space-y-8">
           <h3 className="text-2xl font-semibold text-gray-100">Our Branches</h3>
           <ul className="list-disc pl-5 space-y-1 text-sm">
-            <li>USA</li>
-            <li>Canada</li>
-            <li>Australia</li>
-            <li>Germany</li>
-            <li>Japan</li>
-            <li>India</li>
+            <li>Kerala</li>
+            <li>Karnataka</li>
           </ul>
 
           <h3 className="text-2xl font-semibold text-gray-100">Stay Updated</h3>
@@ -88,7 +91,7 @@ const Footer = () => {
 
       {/* Footer Bottom */}
       <div className="text-center py-4 mt-10 border-t border-gray-700">
-        <p className="text-sm">&copy; 2024 Random Company. All Rights Reserved.</p>
+        <p className="text-sm">&copy; 2025  Castle Restaurant. All Rights Reserved.</p>
       </div>
     </footer>
   );

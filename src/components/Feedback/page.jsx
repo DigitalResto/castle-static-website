@@ -6,69 +6,69 @@ import Link from "next/link";
 const reviews = [
   {
     id: 1,
-    username: "Anshid Rahman",
-    rating: 4,
+    username: "Deepak Jose",
+    rating: 5,
     message:
-      "One of the Restaurant in Bangalore, situated in Madiwala. Best food spot in Madiwala. They have variety of food options. Their mandi is special in the menu. They do accept payment as UPI and Cash. They accept party orders also. Nice ambience and parking is limited. Service is good. Food quality is good",
-    link: "https://g.co/kgs/EMTQeoU",
+      "The food and ambience is quite good. No much rush and the service is fair. The prices are okay and the quantity is also reasonable. Best item to try would be the different kinds of Mandi rices. They are super tasty. It is on the side of a very busy road but fortunately they have a good parking ground behind their building which will be quite useful for people coming in bike or car.",
+    link: "https://maps.app.goo.gl/buQ9S9cPqSsQyvgU8",
     date: "a month ago",
     imageUrl:
-      "https://lh3.googleusercontent.com/a-/ALV-UjWbFbNdGNuELLzchwfZlcOzyuyGI-2qdvC8WdL1ZNVtaS_DdhQZMQ=s64-c-rp-mo-ba6-br100",
+      "https://lh3.googleusercontent.com/a-/ALV-UjXhovICQgwbeDUym2Znj8G-IItp9JIW_BK8zIfm9Sh-bgGCSZw4Cg=w72-h72-p-rp-mo-ba4-br100",
   },
   {
     id: 2,
-    username: "Shimil Mohandas",
+    username: "Vinneth Krishnan C",
     rating: 5,
     message:
-      "As an Arabic food enthusiast, I was blown away by the authentic flavors and outstanding service at this restaurant! The Madhghut was absolutely delicious, and every bite was a testament to the chef's skill. If you're in Bangalore, this place is a must-visit for a truly exceptional dining experience that will leave you craving for more.",
-    link: "https://g.co/kgs/gi8sxC5",
+      "If you’re looking for a delicious Mandi experience, this restaurant is a must-visit! The unlimited Mandi is incredibly tasty and perfect for sharing with friends. The customer service is excellent, making every visit enjoyable. Highly recommend it for anyone craving authentic flavors and a great dining atmosphere!",
+    link: "https://maps.app.goo.gl/Cjvy1Nhf9xnHoxa99",
     date: "1 month ago",
     imageUrl:
-      "https://lh3.googleusercontent.com/a-/ALV-UjU_pWEukgi4ccZMk3S7DWhwQ_JK3rpZNfPqd6QQ2UcglkezhlH4KQ=s64-c-rp-mo-ba5-br100",
+      "https://lh3.googleusercontent.com/a-/ALV-UjUNq8MpAKueUkONRnHftTRjOlutwBoziGT4uItHiZb3V0jML_PniQ=w72-h72-p-rp-mo-ba4-br100",
   },
   {
     id: 3,
-    username: "George Francis",
+    username: "Koushik Tamilmaran",
     rating: 5,
     message:
-      "Castle Restaurant serves one of the best Mandi in Bangalore. Located in the busy streets of Madiwala, getting parking for cars would be a pain. They have limited seating at the outlet near Tea Time, but service is relatively quick, so we didn't have to wait much to get seated.",
+      "A very detailed Mandi place that offers great combinations and a great view. The service is great and the ambience is great. The prices are moderate to high. A good place for dates. And the taste is good to very good. The variety of food is also pretty high with lot of options for Mandi and Al Fam.",
     link: "https://g.co/kgs/GVuLewL",
     date: "3 months ago",
     imageUrl:
-      "https://lh3.googleusercontent.com/a-/ALV-UjW6siPv_u72Rwi7DVXamNAKSQt7mWndtcEYlB1_WT_xDvLnfitJ_w=s64-c-rp-mo-ba6-br100",
+      "https://lh3.googleusercontent.com/a-/ALV-UjVniC3-6FOyFWNuLO9rlKCEEDiq2vR-RYqOKlYr8z5ISigmjpjzmA=w72-h72-p-rp-mo-ba4-br100",
   },
   {
     id: 4,
-    username: "Nabeel Muhammed",
-    rating: 4,
+    username: "Crystal Snow",
+    rating: 5,
     message:
-      "Had their masala shawai mandi and Malabar chicken biriyani. Tasted above average. The shawai chicken was juicy and tender.",
-    link: "https://g.co/kgs/aBF7czx",
-    date: "2 weeks ago",
+      "One of the nice restuarants I've visited. The ambience as well as the staff behavior was good😊 We ordered Corn ginger and garlic, Mushroom manchurian, Paneer Tikka masala, Naan, Laccha paratha and Veg schezwan fried rice. All of them were delicious except Laccha paratha, which was much oily. Overall good experience😎would visit again!",
+    link: "https://maps.app.goo.gl/N5zw1Z4nHPTHHAG17",
+    date: "6 months ago",
     imageUrl:
-      "https://lh3.googleusercontent.com/a-/ALV-UjXB0sgzd67yzQsXso5mEvRknLDFC8JWdu50neGrseEWSekf304j=s64-c-rp-mo-ba4-br100",
+      "https://lh3.googleusercontent.com/a-/ALV-UjVas9uRf71SCqnb9ig9irjY0x-5vmd_RD3hycODhFk_w9-y1jqLuw=w72-h72-p-rp-mo-ba5-br100",
   },
   {
     id: 5,
-    username: "Asifali Shaz",
-    rating: 4,
+    username: "Ann Das",
+    rating: 5,
     message:
-      "The mandhi and arabian dishes are quite good. And maybe this is one of the oldest mandhi brand in madiwala keeping its taste as it is.",
-    link: "https://g.co/kgs/t8HwfPy",
-    date: "1 week ago",
+      "5/5 Stars I had the pleasure of lunch at Castle Restaurant today, and I must say, it was an exceptional experience! The dish I ordered, was cooked to perfection and presented beautifully The flavors were outstanding, and the portion size was generous But what truly made my experience stand out was the exceptional service provided by Manager Charlie… He was attentive, friendly, and made sure that every guest felt welcome and valued His professionalism and kindness are a testament to the high standards of this restaurant…",
+    link: "https://maps.app.goo.gl/GmXr6hGmRWyphjUJ7",
+    date: "a month ago",
     imageUrl:
-      "https://lh3.googleusercontent.com/a-/ALV-UjXSz87rILikNmG0cFVkgCv2C7E8BrHxesDOksxdh-Bgtyvy3zNX=s64-c-rp-mo-ba4-br100",
+      "https://lh3.googleusercontent.com/a/ACg8ocIN3h9M_a4UhXRmz5A0D_-zvHNqKnybAmi48GYNQuRovGebRw=w72-h72-p-rp-mo-br100",
   },
   {
     id: 6,
-    username: "Rahul Raveendran",
+    username: "Nilesh Pawar",
     rating: 5,
     message:
-      "The best mandi restaurant in Madiwala is undoubtedly Castle Restaurant. They offer an extensive variety of chicken and mutton mandi, each prepared with authentic flavors and high-quality ingredients. The menu caters to a wide range of preferences.",
-    link: "https://g.co/kgs/KN6hz8g",
-    date: "5 days ago",
+      "I have been visiting this fantastic hotel in BTM Layout, Bangalore, for the past year, and it has never failed to impress me. The food here is consistently delightful, offering a perfect blend of taste and quality. The staff is well-trained and always ensures a pleasant dining experience.",
+    link: "https://maps.app.goo.gl/Si59zsbZDxkccGCm9",
+    date: "2 months ago",
     imageUrl:
-      "https://lh3.googleusercontent.com/a-/ALV-UjXIrEGOzGN-oMidmbxl-wHi_hhze618QkpewtwiTfwDDi5HYGYxHQ=s64-c-rp-mo-ba5-br100",
+      "https://lh3.googleusercontent.com/a-/ALV-UjU8b44QKzrLXO0smj4Cr4P5IfOhfdHNRkcVnthZzRJyY2FbUwAg=w72-h72-p-rp-mo-br100",
   },
 ];
 
@@ -233,7 +233,7 @@ const ReviewSection = () => {
           
         </motion.div>
         <div className="flex justify-center my-5">
-          <Link href={'/feedback'}>
+          <Link href={'https://www.google.com/maps/place/Castle+Multi+Cuisine+Restaurant/@12.9226241,77.6118294,17z/data=!4m8!3m7!1s0x3bae15b65bce4843:0x5c372af0696e6537!8m2!3d12.9226241!4d77.6144043!9m1!1b1!16s%2Fg%2F11t6lhd7kf?entry=ttu&g_ep=EgoyMDI1MDIxMi4wIKXMDSoASAFQAw%3D%3D'}>
           <button className="group inline-flex items-center gap-2 bg-[#024548] text-white px-6 py-3 rounded-full hover:bg-[#8F005C] transition-colors">
             Give Your Feedback
             <ArrowUpRight className="w-4 h-4 transform transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />

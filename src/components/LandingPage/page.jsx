@@ -54,7 +54,7 @@ const AnimatedTitle = () => {
         className="flex flex-col items-center space-y-4"
       >
         <p className="text-white text-xl md:text-2xl font-light italic">
-          Where Royal Dining Meets Arabian Elegance
+        FLAVOUR YOUR MOMENTS
         </p>
         
         <div className="flex items-center space-x-2">

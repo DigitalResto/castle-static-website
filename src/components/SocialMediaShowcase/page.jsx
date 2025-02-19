@@ -80,8 +80,9 @@ const SocialMediaShowcase = () => {
         </div>
 
         <div className="text-center mt-12">
-          <a 
-            href="#" 
+          <a
+            href="https://www.instagram.com/castlerestaurant.blr/"
+            target="_blank"
             className="inline-flex items-center space-x-2 text-[#024548] hover:text-[#013133] font-medium"
           >
             <Instagram className="w-5 h-5" />
